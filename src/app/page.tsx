@@ -124,7 +124,7 @@ export default function Home() {
             <Image src="/logo.svg" alt="CODES AI" width={160} height={40} priority className="h-9 w-auto" />
           </Link>
           <div className="hidden lg:flex items-center gap-8">
-            {[["Process", "#process"], ["Services", "#services"], ["Architecture", "#architecture"], ["Work", "#portfolio"], ["About", "/about"]].map(([l, h]) => (
+            {[["Process", "#process"], ["Services", "/services"], ["Case Studies", "/case-studies"], ["Architecture", "#architecture"], ["About", "/about"]].map(([l, h]) => (
               <Link key={l} href={h} className="text-sm font-medium text-warm-500 hover:text-peach-600 transition-colors relative group">
                 {l}<span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-peach-500 group-hover:w-full transition-all duration-300" />
               </Link>
@@ -139,10 +139,9 @@ export default function Home() {
         </div>
         {mobileMenu && (
           <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="lg:hidden bg-white border-t px-6 py-4 space-y-3">
-            {["Process", "Services", "Architecture", "Work"].map((i) => (
-              <Link key={i} href={`#${i.toLowerCase()}`} onClick={() => setMobileMenu(false)} className="block text-sm text-warm-600 py-2">{i}</Link>
+            {[["Process", "#process"], ["Services", "/services"], ["Case Studies", "/case-studies"], ["About", "/about"]].map(([label, href]) => (
+              <Link key={label} href={href} onClick={() => setMobileMenu(false)} className="block text-sm text-warm-600 py-2">{label}</Link>
             ))}
-            <Link href="/about" onClick={() => setMobileMenu(false)} className="block text-sm text-warm-600 py-2">About CEO</Link>
             <Link href="/login" className="block text-center text-sm font-semibold text-white bg-peach-500 py-2.5 rounded-xl">Client Portal</Link>
           </motion.div>
         )}
@@ -431,6 +430,11 @@ export default function Home() {
               </motion.div>
             ))}
           </div>
+          <div className="text-center mt-10">
+            <Link href="/services" className="inline-flex items-center gap-2 bg-gradient-to-r from-peach-500 to-peach-600 text-white font-semibold px-8 py-3.5 rounded-2xl shadow-lg shadow-peach-300/30 hover:-translate-y-1 transition-all text-sm">
+              View All Services <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -486,6 +490,11 @@ export default function Home() {
                 </div>
               </motion.div>
             ))}
+          </div>
+          <div className="text-center mt-10">
+            <Link href="/case-studies" className="inline-flex items-center gap-2 bg-gradient-to-r from-peach-500 to-peach-600 text-white font-semibold px-8 py-3.5 rounded-2xl shadow-lg shadow-peach-300/30 hover:-translate-y-1 transition-all text-sm">
+              View All Case Studies <ArrowRight className="w-4 h-4" />
+            </Link>
           </div>
         </div>
       </section>
@@ -561,7 +570,7 @@ export default function Home() {
             <div>
               <h4 className="text-xs font-bold text-white mb-3">Company</h4>
               <ul className="space-y-2">
-                {[["About the CEO", "/about"], ["Case Studies", "#portfolio"], ["Our Process", "#process"], ["Contact", "#contact"]].map(([l, h]) => (
+                {[["About the CEO", "/about"], ["Case Studies", "/case-studies"], ["All Services", "/services"], ["Contact", "#contact"]].map(([l, h]) => (
                   <li key={l}><Link href={h} className="text-xs text-warm-400 hover:text-peach-400 transition-colors">{l}</Link></li>
                 ))}
               </ul>
