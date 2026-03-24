@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 50" fill="none">
+  <!-- Icon: Code brackets with AI brain circuit -->
+  <rect x="2" y="8" width="34" height="34" rx="8" fill="url(#grad1)"/>
+  <!-- Left bracket -->
+  <path d="M14 18L10 25L14 32" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Right bracket -->
+  <path d="M24 18L28 25L24 32" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- AI dot/neural node -->
+  <circle cx="19" cy="25" r="2.5" fill="white"/>
+  <circle cx="19" cy="18" r="1.5" fill="white" opacity="0.7"/>
+  <circle cx="19" cy="32" r="1.5" fill="white" opacity="0.7"/>
+  <line x1="19" y1="20" x2="19" y2="22.5" stroke="white" stroke-width="1" opacity="0.7"/>
+  <line x1="19" y1="27.5" x2="19" y2="30" stroke="white" stroke-width="1" opacity="0.7"/>
+
+  <!-- Text: CODES -->
+  <text x="44" y="30" font-family="system-ui, -apple-system, sans-serif" font-size="22" font-weight="700" fill="#2D2520" letter-spacing="-0.5">CODES</text>
+  <!-- Text: AI -->
+  <text x="118" y="30" font-family="system-ui, -apple-system, sans-serif" font-size="22" font-weight="700" fill="#D4764E" letter-spacing="-0.5">AI</text>
+
+  <!-- Gradient definition -->
+  <defs>
+    <linearGradient id="grad1" x1="2" y1="8" x2="36" y2="42" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#E8956A"/>
+      <stop offset="100%" stop-color="#D4764E"/>
+    </linearGradient>
+  </defs>
+</svg>
