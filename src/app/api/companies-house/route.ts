@@ -1,15 +1,70 @@
 import { NextRequest, NextResponse } from "next/server";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
+
+/**
+ * Rate limiting note:
+ * The Companies House API has its own rate limits (600 requests per 5 minutes).
+ * For production, consider implementing server-side rate limiting per user
+ * using a solution like Redis + sliding window counters to prevent abuse
+ * and protect the API key quota.
+ *
+ * Example approach:
+ * - Track requests per userId in Redis with TTL
+ * - Limit to ~30 requests per minute per user
+ * - Return 429 Too Many Requests when exceeded
+ */
+
+// Simple in-memory rate limiter (per-user, resets on server restart)
+const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
+const RATE_LIMIT_WINDOW_MS = 60_000; // 1 minute
+const RATE_LIMIT_MAX_REQUESTS = 30; // max requests per window
+
+function checkRateLimit(userId: string): boolean {
+  const now = Date.now();
+  const entry = rateLimitMap.get(userId);
+
+  if (!entry || now > entry.resetAt) {
+    rateLimitMap.set(userId, { count: 1, resetAt: now + RATE_LIMIT_WINDOW_MS });
+    return true;
+  }
+
+  if (entry.count >= RATE_LIMIT_MAX_REQUESTS) {
+    return false;
+  }
+
+  entry.count++;
+  return true;
+}
 
 export async function GET(request: NextRequest) {
-  const query = request.nextUrl.searchParams.get("q") || "";
+  // Require authentication to prevent unauthenticated abuse of API key
+  const session = await getServerSession(authOptions);
+  if (!session) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const userId = (session.user as { id: string }).id;
+
+  // Check rate limit
+  if (!checkRateLimit(userId)) {
+    return NextResponse.json(
+      { error: "Too many requests. Please wait before searching again." },
+      { status: 429 }
+    );
+  }
+
+  const query = (request.nextUrl.searchParams.get("q") || "").trim();
   if (!query || query.length < 2) {
     return NextResponse.json({ items: [] });
   }
 
+  // Cap query length to prevent abuse
+  const sanitizedQuery = query.slice(0, 200);
+
   const apiKey = process.env.COMPANIES_HOUSE_API_KEY;
 
-  // If no API key, use the free Companies House search
-  const url = `https://api.company-information.service.gov.uk/search/companies?q=${encodeURIComponent(query)}&items_per_page=20`;
+  const url = `https://api.company-information.service.gov.uk/search/companies?q=${encodeURIComponent(sanitizedQuery)}&items_per_page=20`;
 
   try {
     const headers: Record<string, string> = {

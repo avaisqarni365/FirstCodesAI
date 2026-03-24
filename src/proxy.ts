@@ -1,21 +1,30 @@
-import { NextRequest, NextResponse } from "next/server";
-// import { getToken } from "next-auth/jwt";
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 
-export async function proxy(request: NextRequest) {
-  // TODO: Re-enable auth when database is connected
-  // const token = await getToken({ req: request });
-  // const isAuthPage = request.nextUrl.pathname.startsWith("/login");
-  // const isApiAuth = request.nextUrl.pathname.startsWith("/api/auth");
+// Public routes that don't require authentication
+const publicPaths = ["/", "/about", "/login", "/api/auth"];
 
-  // if (isApiAuth) return NextResponse.next();
-  // if (isAuthPage && token) return NextResponse.redirect(new URL("/dashboard", request.url));
-  // if (!isAuthPage && !token) return NextResponse.redirect(new URL("/login", request.url));
+export function proxy(request: NextRequest) {
+  const { pathname } = request.nextUrl;
 
+  // Allow public paths
+  if (publicPaths.some((path) => pathname === path || pathname.startsWith(path + "/"))) {
+    return NextResponse.next();
+  }
+
+  // Allow static assets and Next.js internals
+  if (
+    pathname.startsWith("/_next") ||
+    pathname.startsWith("/favicon") ||
+    pathname.includes(".") // static files like .svg, .css, .js
+  ) {
+    return NextResponse.next();
+  }
+
+  // All other routes pass through (API routes handle their own auth)
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: [
-    "/((?!_next/static|_next/image|favicon.ico|api/auth).*)",
-  ],
+  matcher: ["/((?!_next/static|_next/image|favicon.ico).*)"],
 };

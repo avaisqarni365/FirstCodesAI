@@ -1,26 +1,27 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 50" fill="none">
-  <!-- Icon: Code brackets with AI brain circuit -->
-  <rect x="2" y="8" width="34" height="34" rx="8" fill="url(#grad1w)"/>
-  <!-- Left bracket -->
-  <path d="M14 18L10 25L14 32" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-  <!-- Right bracket -->
-  <path d="M24 18L28 25L24 32" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-  <!-- AI dot/neural node -->
-  <circle cx="19" cy="25" r="2.5" fill="white"/>
-  <circle cx="19" cy="18" r="1.5" fill="white" opacity="0.7"/>
-  <circle cx="19" cy="32" r="1.5" fill="white" opacity="0.7"/>
-  <line x1="19" y1="20" x2="19" y2="22.5" stroke="white" stroke-width="1" opacity="0.7"/>
-  <line x1="19" y1="27.5" x2="19" y2="30" stroke="white" stroke-width="1" opacity="0.7"/>
-
-  <!-- Text: CODES -->
-  <text x="44" y="30" font-family="system-ui, -apple-system, sans-serif" font-size="22" font-weight="700" fill="#FFFFFF" letter-spacing="-0.5">CODES</text>
-  <!-- Text: AI -->
-  <text x="118" y="30" font-family="system-ui, -apple-system, sans-serif" font-size="22" font-weight="700" fill="#FFC49E" letter-spacing="-0.5">AI</text>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 50" fill="none">
   <defs>
-    <linearGradient id="grad1w" x1="2" y1="8" x2="36" y2="42" gradientUnits="userSpaceOnUse">
+    <linearGradient id="gw1" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
       <stop offset="0%" stop-color="#E8956A"/>
-      <stop offset="100%" stop-color="#D4764E"/>
+      <stop offset="100%" stop-color="#C25D35"/>
     </linearGradient>
   </defs>
+  <rect x="2" y="5" width="40" height="40" rx="12" fill="url(#gw1)"/>
+  <path d="M16 16L10 25L16 34" stroke="white" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path d="M28 16L34 25L28 34" stroke="white" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <circle cx="22" cy="19" r="2" fill="white"/>
+  <circle cx="22" cy="25" r="2.5" fill="white"/>
+  <circle cx="22" cy="31" r="2" fill="white"/>
+  <line x1="22" y1="21" x2="22" y2="22.5" stroke="white" stroke-width="1.2" opacity="0.8"/>
+  <line x1="22" y1="27.5" x2="22" y2="29" stroke="white" stroke-width="1.2" opacity="0.8"/>
+  <line x1="20" y1="19" x2="17" y2="21" stroke="white" stroke-width="0.8" opacity="0.5"/>
+  <line x1="24" y1="19" x2="27" y2="21" stroke="white" stroke-width="0.8" opacity="0.5"/>
+  <line x1="20" y1="31" x2="17" y2="29" stroke="white" stroke-width="0.8" opacity="0.5"/>
+  <line x1="24" y1="31" x2="27" y2="29" stroke="white" stroke-width="0.8" opacity="0.5"/>
+  <circle cx="17" cy="21" r="1" fill="white" opacity="0.5"/>
+  <circle cx="27" cy="21" r="1" fill="white" opacity="0.5"/>
+  <circle cx="17" cy="29" r="1" fill="white" opacity="0.5"/>
+  <circle cx="27" cy="29" r="1" fill="white" opacity="0.5"/>
+  <text x="50" y="32" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="24" font-weight="800" fill="#FFFFFF" letter-spacing="-0.5">CODES</text>
+  <text x="134" y="32" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="24" font-weight="800" fill="#FFC49E" letter-spacing="-0.5">AI</text>
+  <circle cx="156" cy="30" r="2" fill="#FFC49E" opacity="0.6"/>
 </svg>

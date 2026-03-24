@@ -3,6 +3,13 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import { prisma } from "./prisma";
 
+if (!process.env.NEXTAUTH_SECRET) {
+  throw new Error(
+    "NEXTAUTH_SECRET environment variable is not set. " +
+    "Generate one with: openssl rand -base64 32"
+  );
+}
+
 export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
@@ -16,8 +23,11 @@ export const authOptions: NextAuthOptions = {
           throw new Error("Missing credentials");
         }
 
+        // Normalize email to lowercase to prevent case-sensitive bypasses
+        const email = credentials.email.toLowerCase().trim();
+
         const user = await prisma.user.findUnique({
-          where: { email: credentials.email },
+          where: { email },
         });
 
         if (!user || !user.isActive) {
@@ -62,7 +72,7 @@ export const authOptions: NextAuthOptions = {
   },
   session: {
     strategy: "jwt",
-    maxAge: 30 * 24 * 60 * 60, // 30 days
+    maxAge: 7 * 24 * 60 * 60, // 7 days (reduced from 30 for security)
   },
   secret: process.env.NEXTAUTH_SECRET,
 };
