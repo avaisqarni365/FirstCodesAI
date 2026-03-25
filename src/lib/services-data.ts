@@ -15,7 +15,7 @@ export interface ServiceData {
   description: string;
   longDescription: string;
   benefits: string[];
-  process: { step: string; title: string; desc: string; icon: typeof Bot }[];
+  process: { step: string; title: string; desc: string; icon: typeof Bot; tech?: string[] }[];
   technologies: { category: string; items: string[] }[];
   useCases: { title: string; desc: string; metric: string }[];
   faq: { q: string; a: string }[];
