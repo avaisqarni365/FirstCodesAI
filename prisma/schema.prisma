@@ -31,6 +31,8 @@ model User {
   callLogs      CallLog[]
   teamProfile   TeamProfile?
   campaigns     Campaign[]
+  personProfiles PersonProfile[]
+  taggedLeads   ProfileCompanyLead[] @relation("TaggedByUser")
 }
 
 enum Role {
@@ -160,6 +162,7 @@ model Company {
   contacts           Contact[]
   deals              Deal[]
   emails             Email[]
+  profileLeads       ProfileCompanyLead[]
 }
 
 enum CompanyPipelineStage {
@@ -173,6 +176,59 @@ enum CompanyPipelineStage {
   WON
   LOST
   NURTURING
+}
+
+// ==================== PROFILE INTELLIGENCE / LEAD ENRICHMENT ====================
+
+model PersonProfile {
+  id          String   @id @default(cuid())
+  personName  String
+  linkedinUrl String?
+  headline    String?
+  location    String?
+  region      String   @default("UK")
+  rawProfile  String
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  leads       ProfileCompanyLead[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model ProfileCompanyLead {
+  id             String               @id @default(cuid())
+  profileId      String
+  profile        PersonProfile        @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  companyName    String
+  role           String?
+  duration       String?
+  location       String?
+  website        String?
+  careersUrl     String?
+  jobListings    Json?
+  searchQuery    String?
+  region         String               @default("UK")
+  pipelineStage  CompanyPipelineStage @default(IDENTIFIED)
+  taggedAt       DateTime?
+  taggedByUserId String?
+  taggedBy       User?                @relation("TaggedByUser", fields: [taggedByUserId], references: [id])
+  companyId      String?
+  company        Company?             @relation(fields: [companyId], references: [id])
+  status         LeadEnrichmentStatus @default(PENDING)
+  customFields   Json?
+  createdAt      DateTime             @default(now())
+  updatedAt      DateTime             @updatedAt
+
+  @@index([profileId])
+  @@index([taggedByUserId, taggedAt])
+}
+
+enum LeadEnrichmentStatus {
+  PENDING
+  ENRICHING
+  ENRICHED
+  TAGGED
+  FAILED
 }
 
 // ==================== EMAIL MARKETING ====================
@@ -486,4 +542,34 @@ model AITool {
   config       Json?
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
+}
+
+// ==================== SPARKVIBE STUDIO ====================
+
+enum ProjectRequestStatus {
+  NEW
+  REVIEWING
+  QUOTED
+  IN_BUILD
+  DELIVERED
+  DECLINED
+}
+
+model ProjectRequest {
+  id           String               @id @default(cuid())
+  name         String?
+  email        String?
+  company      String?
+  requirements String               // idea / requirements text from the studio
+  features     Json                 // selected feature ids/names
+  complexity   String               // simple | standard | complex
+  estTokens    Int                  @default(0)
+  estPrice     Int                  @default(0)
+  estSprints   Int                  @default(0)
+  estWeeks     Int                  @default(0)
+  status       ProjectRequestStatus @default(NEW)
+  notes        String?              // internal admin notes
+  source       String               @default("studio")
+  createdAt    DateTime             @default(now())
+  updatedAt    DateTime             @updatedAt
 }

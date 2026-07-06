@@ -9,6 +9,8 @@ import {
   Handshake,
   Building2,
   Search,
+  UserSearch,
+  Code2,
   Mail,
   Send,
   Inbox,
@@ -26,7 +28,7 @@ import {
   UserCog,
   ChevronDown,
   LogOut,
-  Code2,
+  Rocket,
 } from "lucide-react";
 import { signOut } from "next-auth/react";
 import { useState } from "react";
@@ -61,6 +63,8 @@ const navigation: NavGroup[] = [
     label: "HR & Lead Gen",
     items: [
       { label: "Company Search", href: "/hr-leads/search", icon: Search },
+      { label: "IT Directory", href: "/hr-leads/it-directory", icon: Code2 },
+      { label: "Profile Intel", href: "/hr-leads/profile-intel", icon: UserSearch },
       { label: "Companies", href: "/hr-leads/companies", icon: Building2 },
       { label: "Pipeline", href: "/hr-leads/pipeline", icon: BarChart3 },
     ],
@@ -92,6 +96,7 @@ const navigation: NavGroup[] = [
   {
     label: "Admin Portal",
     items: [
+      { label: "Build Requests", href: "/admin-portal/build-requests", icon: Rocket },
       { label: "Pages", href: "/admin-portal/pages", icon: Globe },
       { label: "Team", href: "/admin-portal/team", icon: UsersRound },
       { label: "Services", href: "/admin-portal/services", icon: Wrench },

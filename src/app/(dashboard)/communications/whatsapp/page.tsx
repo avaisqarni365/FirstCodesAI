@@ -114,7 +114,7 @@ export default function WhatsAppPage() {
         </div>
 
         {/* Chat Messages */}
-        <div className="lg:col-span-2 bg-[#FEF9F4] flex flex-col">
+        <div className="lg:col-span-2 bg-warm-50 flex flex-col">
           {selectedChat ? (
             <>
               {/* Chat Header */}

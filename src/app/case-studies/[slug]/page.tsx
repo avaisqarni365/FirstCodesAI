@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { motion, AnimatePresence, useInView } from "framer-motion";
+import { motion, AnimatePresence, useInView, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import { ArrowRight, ArrowLeft, Mail, Phone, Star, CheckCircle2, Code2, Sparkles, Menu, X, ArrowUpRight, Award, ChevronDown, Send, Gauge, Database } from "lucide-react";
 import { caseStudies } from "@/lib/case-studies-data";
 
@@ -41,9 +41,15 @@ export default function CaseStudyDetailPage() {
   const study = caseStudies.find((cs) => cs.slug === slug);
   const otherStudies = caseStudies.filter((cs) => cs.slug !== slug);
 
+  // Hooks must run before any early return (Rules of Hooks)
+  const reduceMotion = useReducedMotion();
+  const heroRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
+  const heroParallax = useTransform(scrollYProgress, [0, 1], reduceMotion ? ["0%", "0%"] : ["0%", "8%"]);
+
   if (!study) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#FEFAF6]">
+      <div className="min-h-screen flex items-center justify-center bg-warm-50">
         <div className="text-center p-6">
           <h1 className="text-xl font-bold text-warm-800 mb-4">Case study not found</h1>
           <Link href="/case-studies" className="text-peach-500 text-sm font-semibold"><ArrowLeft className="w-4 h-4 inline mr-1" />Back</Link>
@@ -55,7 +61,7 @@ export default function CaseStudyDetailPage() {
   const Icon = study.icon;
 
   return (
-    <div className="min-h-screen bg-[#FEFAF6] overflow-x-hidden">
+    <div className="grain min-h-screen bg-warm-50 overflow-x-hidden">
       {/* Nav */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-lg border-b border-warm-100/60">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-14 sm:h-16 flex items-center justify-between">
@@ -64,7 +70,7 @@ export default function CaseStudyDetailPage() {
             <span className="font-bold text-warm-800 text-base tracking-tight">CODES<span className="text-peach-500">AI</span></span>
           </Link>
           <div className="hidden md:flex items-center gap-6">
-            {[["Services", "/services"], ["Case Studies", "/case-studies"], ["About", "/about"]].map(([l, h]) => (
+            {[["Studio", "/studio"], ["Services", "/services"], ["Case Studies", "/case-studies"], ["About", "/about"]].map(([l, h]) => (
               <Link key={l} href={h} className={`text-sm font-medium ${h === "/case-studies" ? "text-peach-600" : "text-warm-500 hover:text-peach-600"} transition-colors`}>{l}</Link>
             ))}
             <Link href="/login" className="text-sm font-semibold text-white bg-gradient-to-r from-peach-500 to-peach-600 px-4 py-2 rounded-lg shadow-md">Portal</Link>
@@ -77,7 +83,7 @@ export default function CaseStudyDetailPage() {
           {menuOpen && (
             <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} className="md:hidden bg-white border-t overflow-hidden">
               <div className="px-4 py-3 space-y-1">
-                {[["Services", "/services"], ["Case Studies", "/case-studies"], ["About CEO", "/about"]].map(([l, h]) => (
+                {[["Studio", "/studio"], ["Services", "/services"], ["Case Studies", "/case-studies"], ["About CEO", "/about"]].map(([l, h]) => (
                   <Link key={l} href={h} onClick={() => setMenuOpen(false)} className="block px-3 py-3 text-base font-medium text-warm-700 rounded-lg">{l}</Link>
                 ))}
                 <Link href="/login" onClick={() => setMenuOpen(false)} className="block mt-2 text-center text-sm font-semibold text-white bg-peach-500 py-3 rounded-xl">Client Portal</Link>
@@ -87,14 +93,14 @@ export default function CaseStudyDetailPage() {
         </AnimatePresence>
       </nav>
 
-      {/* Hero — gradient card */}
-      <section className="pt-16 sm:pt-20 px-4 sm:px-6">
+      {/* Hero — gradient card, metric-led */}
+      <section ref={heroRef} className="pt-16 sm:pt-20 px-4 sm:px-6">
         <div className="max-w-5xl mx-auto pt-4 sm:pt-6">
           <Link href="/case-studies" className="inline-flex items-center gap-1 text-warm-500 text-sm mb-4 hover:text-peach-500 transition-colors">
             <ArrowLeft className="w-3.5 h-3.5" /> All Case Studies
           </Link>
 
-          <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
+          <motion.div style={{ y: heroParallax }} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
             className={`bg-gradient-to-br ${study.gradient} rounded-2xl sm:rounded-3xl p-5 sm:p-8 lg:p-12 relative overflow-hidden`}>
             <div className="absolute -top-16 -right-16 w-48 sm:w-72 h-48 sm:h-72 rounded-full bg-white/10 blur-3xl" />
             <div className="relative z-10">
@@ -104,15 +110,15 @@ export default function CaseStudyDetailPage() {
                 <span className="text-[10px] sm:text-xs font-semibold text-white/90 bg-white/10 px-2.5 py-1 rounded-full">{study.industry}</span>
               </div>
               <p className="text-white/70 text-sm">{study.client}</p>
-              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mt-1">{study.title}</h1>
+              <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-white mt-1">{study.title}</h1>
 
-              {/* Hero metric */}
-              <div className="mt-6 sm:mt-8 inline-flex items-end gap-3 bg-white/15 backdrop-blur-sm rounded-xl px-5 sm:px-6 py-3 sm:py-4">
-                <span className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white leading-none"><AnimatedCounter value={study.heroMetric} /></span>
-                <span className="text-sm text-white/80 pb-0.5">{study.heroMetricLabel}</span>
+              {/* Hero metric — dominant, leads the story */}
+              <div className="mt-6 sm:mt-8">
+                <p className="text-[length:var(--text-display)] font-extrabold text-white leading-none tracking-tight"><AnimatedCounter value={study.heroMetric} /></p>
+                <p className="text-base sm:text-lg text-white/80 mt-1">{study.heroMetricLabel}</p>
               </div>
 
-              <div className="mt-4 flex flex-wrap gap-4 text-xs sm:text-sm text-white/70">
+              <div className="mt-5 flex flex-wrap gap-4 text-xs sm:text-sm text-white/70">
                 <span>Timeline: <strong className="text-white">{study.timeline}</strong></span>
                 <span>Team: <strong className="text-white">{study.teamSize}</strong></span>
               </div>
@@ -121,39 +127,43 @@ export default function CaseStudyDetailPage() {
         </div>
       </section>
 
-      {/* Summary / Challenge / Solution */}
-      <section className="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-          {[
-            { title: "Summary", body: study.summary, color: "border-l-peach-400" },
-            { title: "The Challenge", body: study.challenge, color: "border-l-amber-400" },
-            { title: "Our Solution", body: study.solution, color: "border-l-emerald-400" },
-          ].map((sec, i) => (
-            <FadeIn key={sec.title} delay={i * 0.08}>
-              <div className={`bg-white rounded-xl border border-warm-100 border-l-4 ${sec.color} p-5 sm:p-6 h-full`}>
-                <h3 className="text-sm sm:text-base font-bold text-warm-800 mb-2">{sec.title}</h3>
-                <p className="text-xs sm:text-sm text-warm-500 leading-relaxed">{sec.body}</p>
-              </div>
-            </FadeIn>
-          ))}
-        </div>
-      </section>
+      {/* Story + sticky KPI rail — skimmers always see impact */}
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10">
+          {/* Narrative column */}
+          <div className="space-y-4">
+            {[
+              { title: "Summary", body: study.summary, color: "border-l-peach-400" },
+              { title: "The Challenge", body: study.challenge, color: "border-l-amber-400" },
+              { title: "Our Solution", body: study.solution, color: "border-l-emerald-400" },
+            ].map((sec, i) => (
+              <FadeIn key={sec.title} delay={i * 0.08}>
+                <div className={`bg-white rounded-xl border border-warm-100 border-l-4 ${sec.color} p-5 sm:p-6`}>
+                  <h3 className="text-sm sm:text-base font-bold text-warm-800 mb-2">{sec.title}</h3>
+                  <p className="text-xs sm:text-sm text-warm-500 leading-relaxed">{sec.body}</p>
+                </div>
+              </FadeIn>
+            ))}
+          </div>
 
-      {/* Results Grid */}
-      <section className="max-w-5xl mx-auto px-4 sm:px-6 pb-8 sm:pb-12">
-        <FadeIn className="text-center mb-6">
-          <h2 className="text-lg sm:text-2xl font-bold text-warm-800">Results & <span className="text-peach-500">Impact</span></h2>
-        </FadeIn>
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
-          {study.results.map((r, i) => (
-            <FadeIn key={r.label} delay={i * 0.06}>
-              <div className="bg-white rounded-xl border border-warm-100 p-4 sm:p-5 text-center hover:shadow-lg hover:border-peach-200 transition-all">
-                <p className="text-2xl sm:text-3xl font-extrabold text-warm-800"><AnimatedCounter value={r.metric} /></p>
-                <p className="text-xs sm:text-sm font-bold text-peach-600 mt-1">{r.label}</p>
-                <p className="text-[9px] sm:text-[10px] text-warm-400 mt-0.5">{r.detail}</p>
+          {/* Sticky KPI panel */}
+          <div className="lg:sticky lg:top-24 h-fit">
+            <div className="bg-white rounded-2xl border border-warm-100 shadow-sm p-5 sm:p-7">
+              <h2 className="text-lg sm:text-2xl font-bold text-warm-800 mb-1">Results & <span className="text-peach-500">Impact</span></h2>
+              <p className="text-xs sm:text-sm text-warm-500 mb-5">The numbers that mattered.</p>
+              <div className="grid grid-cols-2 gap-3 sm:gap-4">
+                {study.results.map((r, i) => (
+                  <FadeIn key={r.label} delay={i * 0.06}>
+                    <div className="bg-warm-50 rounded-xl border border-warm-100 p-4 sm:p-5 text-center hover:shadow-lg hover:border-peach-200 transition-all h-full">
+                      <p className="text-2xl sm:text-3xl font-extrabold text-warm-800"><AnimatedCounter value={r.metric} /></p>
+                      <p className="text-xs sm:text-sm font-bold text-peach-600 mt-1">{r.label}</p>
+                      <p className="text-[9px] sm:text-[10px] text-warm-400 mt-0.5">{r.detail}</p>
+                    </div>
+                  </FadeIn>
+                ))}
               </div>
-            </FadeIn>
-          ))}
+            </div>
+          </div>
         </div>
       </section>
 
@@ -255,8 +265,8 @@ export default function CaseStudyDetailPage() {
       {study.testimonial && (
         <section className="max-w-5xl mx-auto px-4 sm:px-6 pb-8 sm:pb-12">
           <FadeIn>
-            <div className="bg-white rounded-2xl border border-peach-200 p-5 sm:p-8 relative overflow-hidden">
-              <span className="absolute top-2 left-4 text-5xl sm:text-7xl font-serif text-peach-100 select-none">&ldquo;</span>
+            <div className="bg-white rounded-2xl border border-warm-100 border-l-4 border-l-peach-500 p-5 sm:p-8 relative overflow-hidden shadow-sm">
+              <span className="absolute top-2 left-4 text-5xl sm:text-7xl font-serif text-peach-200 select-none">&ldquo;</span>
               <div className="relative z-10 pt-6 sm:pt-4">
                 <p className="text-sm sm:text-base text-warm-700 italic leading-relaxed mb-4">&ldquo;{study.testimonial.quote}&rdquo;</p>
                 <div className="flex gap-0.5 mb-3">{[1,2,3,4,5].map((j) => <Star key={j} className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />)}</div>
@@ -314,13 +324,13 @@ export default function CaseStudyDetailPage() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-warm-800 py-6">
+      <footer className="bg-warm-50 border-t border-warm-200 py-6">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-3">
           <Link href="/" className="flex items-center gap-2">
             <div className="w-7 h-7 bg-gradient-to-br from-peach-400 to-peach-600 rounded-lg flex items-center justify-center"><Code2 className="w-3.5 h-3.5 text-white" /></div>
-            <span className="font-bold text-white text-sm">CODES<span className="text-peach-400">AI</span></span>
+            <span className="font-bold text-warm-800 text-sm">CODES<span className="text-peach-500">AI</span></span>
           </Link>
-          <p className="text-[10px] text-warm-400">&copy; 2026 CODES AI LIMITED (16078672)</p>
+          <p className="text-[10px] text-warm-500">&copy; 2026 CODES AI LIMITED (16078672)</p>
         </div>
       </footer>
     </div>

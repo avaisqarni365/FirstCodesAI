@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/providers";
 
@@ -13,9 +13,17 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+// Primary typeface — IBM Plex Mono (OpenCode developer-tool identity, used everywhere)
+const plexMono = IBM_Plex_Mono({
+  variable: "--font-plex-mono",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+});
+
 export const metadata: Metadata = {
-  title: "CODES AI | Business Management Platform",
-  description: "CRM, HR Lead Generation, Email Marketing, VoIP, and Accounting platform by CODES AI Private Limited",
+  title: "CODES AI | Vibe Coding Studio — Build Any App, Remotely",
+  description:
+    "Have an idea? SparkVibe Studio turns it into a shipped product — write requirements, pick features, get a live token-cost estimate, and our remote vibe-coding team + domain experts build it sprint by sprint.",
 };
 
 export default function RootLayout({
@@ -26,7 +34,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${plexMono.variable} ${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         <Providers>{children}</Providers>

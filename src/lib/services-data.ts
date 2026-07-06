@@ -3,7 +3,24 @@ import {
   LineChart, Lock, Layers, Brain, Cpu, Server, Zap,
   GitBranch, Shield, Eye, Gauge, FileCode, CircuitBoard,
   Boxes, BarChart3, Globe, Workflow, Terminal, Code2,
+  Users, Search, Phone, Calculator, Sparkles,
 } from "lucide-react";
+
+export type ServiceVariant =
+  | "terminal"    // command-line / ops desk feel
+  | "pipeline"    // horizontal flowing pipeline
+  | "switchboard" // comms / channels board
+  | "ledger"      // finance / accounting sheet
+  | "orbit"       // team / marketplace orbit
+  | "neural"      // AI / model graph
+  | "lakehouse"   // data layers
+  | "cloudmap"    // cloud regions map
+  | "browser"     // web app browser frame
+  | "device"      // mobile device frame
+  | "blueprint"   // custom software blueprint
+  | "dashboard"   // BI dashboard
+  | "vault"       // security vault
+  | "graph";      // API/integration node graph
 
 export interface ServiceData {
   slug: string;
@@ -23,6 +40,206 @@ export interface ServiceData {
 
 export const servicesData: ServiceData[] = [
   {
+    slug: "remote-sales-crm-ops",
+    title: "Remote Sales & CRM Ops",
+    tagline: "We run your entire sales pipeline remotely — contacts, deals, and follow-ups, handled",
+    icon: Users,
+    color: "text-peach-600",
+    gradient: "from-peach-500 to-peach-600",
+    description: "Your outsourced remote sales desk. We operate your CRM — contacts, Kanban deal pipeline, and the full activity timeline — so nothing slips.",
+    longDescription: "CODES AI becomes your remote sales operations team. We manage your contacts database, drive deals across a visual Kanban pipeline, and log every interaction on a single activity timeline — calls, emails, meetings and notes. You get a professionally run sales function without hiring, onboarding, or managing an in-house team, operated on CRM software we've already built and run for our own business.",
+    benefits: [
+      "A fully staffed remote sales desk without in-house headcount",
+      "Every deal tracked on a visual Kanban pipeline with clear stages",
+      "Complete interaction history — calls, emails, notes — on one timeline",
+      "Consistent, timezone-agnostic follow-up so no lead goes cold",
+      "Weekly pipeline reviews and forecast visibility",
+      "Clean, deduplicated contact data maintained continuously",
+    ],
+    process: [
+      { step: "01", title: "Onboard", desc: "We import your contacts and map your sales stages into the CRM pipeline.", icon: Eye },
+      { step: "02", title: "Structure", desc: "Define deal stages, ownership, and follow-up cadences for your business.", icon: Boxes },
+      { step: "03", title: "Operate", desc: "Our remote team works the pipeline daily — advancing deals and logging every interaction.", icon: Workflow },
+      { step: "04", title: "Report", desc: "Weekly pipeline health, conversion and forecast reporting.", icon: BarChart3 },
+      { step: "05", title: "Optimise", desc: "We refine stages and cadences based on what's converting.", icon: Gauge },
+    ],
+    technologies: [
+      { category: "CRM Platform", items: ["Contacts Database", "Kanban Deal Pipeline", "Activity Timeline", "Interaction Logging"] },
+      { category: "Integrations", items: ["Email Sync", "VoIP Call Logs", "WhatsApp Threads", "Lead Pipeline Handoff"] },
+      { category: "Reporting", items: ["Pipeline Forecasts", "Conversion Metrics", "Activity Reports"] },
+    ],
+    useCases: [
+      { title: "Outsourced SDR Desk", desc: "We run first-touch and follow-up for inbound and sourced leads, keeping every deal moving through the pipeline.", metric: "0 leads left un-actioned" },
+      { title: "Founder-Led Sales Handover", desc: "Took over pipeline management from a time-poor founder, structuring stages and running daily follow-up.", metric: "100% activity logged" },
+      { title: "Multi-Timezone Coverage", desc: "Operated a UK client's pipeline against EU and US prospects with timezone-aware follow-up.", metric: "3 regions covered" },
+    ],
+    faq: [
+      { q: "Do we need our own CRM?", a: "No. We operate everything on the CRM platform we've already built and run in-house — contacts, Kanban pipeline and activity timeline are all included. If you have an existing CRM, we can work alongside it." },
+      { q: "Who owns the data?", a: "You do. All contacts, deals and interaction history are yours and can be exported at any time. Everything is handled under NDA and GDPR." },
+      { q: "How is this different from hiring a salesperson?", a: "You get a trained remote team operating proven software from day one — no recruitment, onboarding, tooling cost, or management overhead, and no single point of failure." },
+    ],
+  },
+  {
+    slug: "global-lead-generation",
+    title: "Global Lead Generation",
+    tagline: "We find and enrich your ideal customers — worldwide — and hand them to your pipeline",
+    icon: Search,
+    color: "text-blue-600",
+    gradient: "from-blue-600 to-cyan-600",
+    description: "Remote prospecting powered by Companies House data, SIC-code IT directories, and web enrichment across UK, EU, US, IN and AE.",
+    longDescription: "Our remote lead-generation desk builds you a steady flow of qualified, enriched prospects. We search live UK company data via the Companies House API, target sectors by SIC code through our IT directory, and run Profile Intelligence — discovering the company behind a person and enriching records with web data via Google Custom Search and DuckDuckGo, plus job-listing signals. We support UK, EU, US, IN and AE regions, save qualified companies, and feed them straight into your sales pipeline.",
+    benefits: [
+      "Live UK company search via the Companies House API",
+      "Sector targeting by SIC code through a curated IT directory",
+      "Profile Intelligence: person-to-company discovery with web enrichment",
+      "Job-listing signals to spot hiring and buying intent",
+      "Multi-region coverage — UK, EU, US, IN, AE",
+      "Qualified companies saved and pushed into your sales pipeline",
+    ],
+    process: [
+      { step: "01", title: "Define ICP", desc: "We agree your ideal customer profile — sector, size, region, and buying signals.", icon: Eye },
+      { step: "02", title: "Source", desc: "Search Companies House and the SIC-code IT directory for matching companies.", icon: Search },
+      { step: "03", title: "Enrich", desc: "Profile Intelligence enriches records via web search and job-listing parsing.", icon: Globe },
+      { step: "04", title: "Qualify", desc: "We filter and save the companies that fit, discarding the noise.", icon: Shield },
+      { step: "05", title: "Handoff", desc: "Qualified prospects flow into your CRM pipeline ready for outreach.", icon: Workflow },
+    ],
+    technologies: [
+      { category: "Data Sources", items: ["Companies House UK API", "SIC-Code IT Directory", "Google Custom Search", "DuckDuckGo", "Job Listings"] },
+      { category: "Enrichment", items: ["Profile Intelligence", "Person → Company Discovery", "Web Enrichment", "Regional Support (UK/EU/US/IN/AE)"] },
+      { category: "Pipeline", items: ["Saved Companies", "Lead Pipeline", "CRM Handoff"] },
+    ],
+    useCases: [
+      { title: "UK IT-Sector Prospecting", desc: "Built a targeted list of UK IT companies by SIC code, enriched with decision-maker profiles and current job openings.", metric: "SIC-targeted lists" },
+      { title: "Person-to-Company Discovery", desc: "Started from named individuals and used Profile Intelligence to resolve their companies and enrich full records.", metric: "Web-enriched profiles" },
+      { title: "Multi-Region Expansion", desc: "Generated qualified prospects across EU, US and AE for a UK client entering new markets.", metric: "5 regions supported" },
+    ],
+    faq: [
+      { q: "Where does the company data come from?", a: "Primarily the official Companies House UK API for live company records, plus our SIC-code IT directory, and web enrichment via Google Custom Search and DuckDuckGo. All sourcing is public-data and GDPR-conscious." },
+      { q: "Can you generate leads outside the UK?", a: "Yes. Our Profile Intelligence supports UK, EU, US, IN and AE regions, with web enrichment and job-listing signals for each." },
+      { q: "How do leads reach our sales team?", a: "Qualified companies are saved and pushed into the CRM pipeline, so your remote sales desk (or your own team) can action them immediately." },
+    ],
+  },
+  {
+    slug: "remote-communications-desk",
+    title: "Remote Communications Desk",
+    tagline: "Your calls, WhatsApp and email — answered and actioned by a remote team, anywhere",
+    icon: Phone,
+    color: "text-emerald-600",
+    gradient: "from-emerald-600 to-teal-600",
+    description: "A remote front desk running WhatsApp Business chat, a Twilio VoIP dialer with call logs, and a unified email inbox — all logged to your CRM.",
+    longDescription: "We operate your customer communications remotely across every channel. Our desk handles WhatsApp Business conversations, outbound and inbound calls through a Twilio-powered VoIP dialer with full call logging, and a unified email inbox over SMTP/IMAP. Every conversation is captured against the right contact in your CRM, so your history stays complete and nothing falls through the cracks — regardless of timezone.",
+    benefits: [
+      "WhatsApp Business chat handled by a remote team",
+      "Twilio VoIP dialer with complete, searchable call logs",
+      "Unified email inbox over SMTP/IMAP across your addresses",
+      "Every interaction logged against the CRM contact",
+      "Timezone-agnostic coverage for inbound enquiries",
+      "Consistent, on-brand responses across all channels",
+    ],
+    process: [
+      { step: "01", title: "Connect", desc: "We connect your WhatsApp Business, VoIP numbers, and email accounts.", icon: Phone },
+      { step: "02", title: "Playbook", desc: "Agree tone, response templates, and escalation rules for your business.", icon: FileCode },
+      { step: "03", title: "Operate", desc: "Our desk answers chats, makes and logs calls, and works the inbox daily.", icon: Workflow },
+      { step: "04", title: "Log", desc: "Every conversation is attached to the right CRM contact automatically.", icon: Boxes },
+      { step: "05", title: "Review", desc: "Response-time and volume reporting, with continuous playbook tuning.", icon: Gauge },
+    ],
+    technologies: [
+      { category: "Channels", items: ["WhatsApp Business API", "Twilio VoIP Dialer", "Unified Inbox", "SMTP/IMAP Email"] },
+      { category: "Logging", items: ["Call Logs", "Chat History", "CRM Interaction Timeline"] },
+      { category: "Operations", items: ["Response Templates", "Escalation Rules", "Coverage Scheduling"] },
+    ],
+    useCases: [
+      { title: "Outsourced Front Desk", desc: "Handled all inbound WhatsApp and email for a services business, logging each thread to the CRM.", metric: "One unified inbox" },
+      { title: "Outbound Calling Campaign", desc: "Ran a VoIP dialer campaign with full call logging and CRM follow-up tasks.", metric: "Every call logged" },
+      { title: "After-Hours Coverage", desc: "Provided remote coverage across timezones so enquiries were never left waiting.", metric: "Timezone-agnostic" },
+    ],
+    faq: [
+      { q: "Which channels can you run?", a: "WhatsApp Business chat, voice calls via a Twilio-powered VoIP dialer with call logs, and a unified email inbox over SMTP/IMAP — all operated on software we already run in-house." },
+      { q: "Do calls and messages get recorded in our CRM?", a: "Yes. Every call log, chat and email is captured against the relevant contact on the CRM activity timeline, so your history stays complete." },
+      { q: "Can you use our existing phone numbers and email?", a: "Yes. We connect your existing WhatsApp Business number, VoIP numbers, and email accounts rather than replacing them." },
+    ],
+  },
+  {
+    slug: "remote-finance-invoicing-ops",
+    title: "Remote Finance & Invoicing Ops",
+    tagline: "Invoices, expenses and VAT-ready reporting — run remotely so your books stay clean",
+    icon: Calculator,
+    color: "text-amber-600",
+    gradient: "from-amber-600 to-orange-600",
+    description: "Your remote back-office finance desk: VAT invoices, expense tracking, and P&L, VAT-return and cash-flow reports — kept up to date for you.",
+    longDescription: "CODES AI runs the finance admin most owners dread. Our remote back-office raises and tracks VAT invoices, records and categorises expenses, and produces the reports you actually need to run the business — profit & loss, VAT return, and cash flow. Everything is kept current so you always know where you stand and month-end is never a scramble, operated on accounting software we've already built and ship as our own product, ACCA (acca.codes-ai.uk) — fully-remote accounting for clients worldwide.",
+    benefits: [
+      "VAT-compliant invoices raised and chased for you",
+      "Expenses recorded and categorised continuously",
+      "P&L, VAT-return and cash-flow reports kept current",
+      "A clean, always-up-to-date financial picture",
+      "Remote back-office with no in-house finance hire",
+      "Handled under NDA with GDPR-conscious data handling",
+    ],
+    process: [
+      { step: "01", title: "Set Up", desc: "We configure your VAT settings, invoice templates, and expense categories.", icon: FileCode },
+      { step: "02", title: "Invoice", desc: "Raise, send and track VAT invoices, with follow-up on overdue amounts.", icon: Calculator },
+      { step: "03", title: "Record", desc: "Log and categorise expenses as they happen.", icon: Boxes },
+      { step: "04", title: "Report", desc: "Produce P&L, VAT-return and cash-flow reports on a regular cadence.", icon: BarChart3 },
+      { step: "05", title: "Review", desc: "Monthly review of numbers and cash position with you.", icon: Gauge },
+    ],
+    technologies: [
+      { category: "Invoicing", items: ["VAT Invoices", "Invoice Tracking", "Payment Follow-up"] },
+      { category: "Expenses", items: ["Expense Recording", "Categorisation", "Receipt Tracking"] },
+      { category: "Reporting", items: ["Profit & Loss", "VAT Return", "Cash Flow"] },
+    ],
+    useCases: [
+      { title: "Outsourced Invoicing", desc: "Took over raising and chasing VAT invoices for a growing services business.", metric: "VAT-compliant billing" },
+      { title: "Always-Current Books", desc: "Kept expenses and reports up to date so month-end reporting was instant.", metric: "Real-time P&L" },
+      { title: "Cash-Flow Visibility", desc: "Delivered regular cash-flow reporting so the owner could plan spend with confidence.", metric: "Cash flow on demand" },
+    ],
+    faq: [
+      { q: "Are you a replacement for an accountant?", a: "We handle day-to-day finance operations — invoicing, expenses and management reporting (P&L, VAT return, cash flow). We complement your accountant rather than replace statutory filing and audit responsibilities." },
+      { q: "Do your invoices handle UK VAT?", a: "Yes. Invoices are VAT-compliant and we produce VAT-return reporting on the software we run in-house." },
+      { q: "How do we share financial data securely?", a: "Everything is handled under NDA with GDPR-conscious data handling, and you retain full ownership and export of all records." },
+    ],
+  },
+  {
+    slug: "remote-team-enablement",
+    title: "Remote Team Enablement",
+    tagline: "Team profiles, an AI-tools marketplace and collaboration — your ops team, equipped",
+    icon: Sparkles,
+    color: "text-violet-600",
+    gradient: "from-violet-600 to-purple-600",
+    description: "The Team Hub behind our remote operations: team profiles, a curated AI-tools marketplace, and shared collaboration workspace.",
+    longDescription: "Every remote operation we run is powered by our Team Hub. It gives you visibility into the team operating your account, a curated marketplace of the AI tools we use — Claude, Cursor, Kimi, Databricks, Fabric and Power BI — and a shared collaboration space to keep work moving. This is how we deliver a coordinated, well-equipped remote back-office rather than a set of disconnected freelancers.",
+    benefits: [
+      "Clear visibility of the team operating your account",
+      "Curated AI-tools marketplace: Claude, Cursor, Kimi, Databricks, Fabric, Power BI",
+      "Shared collaboration workspace for coordinated delivery",
+      "Consistent tooling and process across every engagement",
+      "A coordinated remote team, not disconnected freelancers",
+      "Best-practice AI tooling applied to your operations",
+    ],
+    process: [
+      { step: "01", title: "Assemble", desc: "We assign and profile the remote team operating your account.", icon: Users },
+      { step: "02", title: "Equip", desc: "Provision the right AI tools from the marketplace for your workload.", icon: Sparkles },
+      { step: "03", title: "Collaborate", desc: "Run delivery through a shared collaboration workspace.", icon: Workflow },
+      { step: "04", title: "Coordinate", desc: "Keep CRM, comms, leads and finance ops joined up across the team.", icon: Boxes },
+      { step: "05", title: "Improve", desc: "Continuously refine tooling and process as your needs evolve.", icon: Gauge },
+    ],
+    technologies: [
+      { category: "Team Hub", items: ["Team Profiles", "Collaboration Workspace", "Shared Context"] },
+      { category: "AI Tools Marketplace", items: ["Claude", "Cursor", "Kimi", "Databricks", "Fabric", "Power BI"] },
+      { category: "Coordination", items: ["Cross-Module Workflows", "Shared Reporting", "Process Playbooks"] },
+    ],
+    useCases: [
+      { title: "Coordinated Remote Desk", desc: "Ran a client's sales, comms and finance ops through one coordinated Team Hub instead of siloed contractors.", metric: "One coordinated team" },
+      { title: "AI-Equipped Operations", desc: "Applied Claude and Power BI from the marketplace to speed up outreach and reporting.", metric: "AI-assisted delivery" },
+      { title: "Transparent Delivery", desc: "Gave a client full visibility of the team and tools operating their account.", metric: "Full team visibility" },
+    ],
+    faq: [
+      { q: "Which AI tools do you use?", a: "Our Team Hub marketplace includes Claude, Cursor, Kimi, Databricks, Fabric and Power BI. We apply the right tool to each part of your operations." },
+      { q: "Will we know who is working on our account?", a: "Yes. Team profiles give you clear visibility of the remote team operating your account and how work is coordinated." },
+      { q: "Is this a standalone service?", a: "It underpins all our remote-ops services. It's the collaboration and tooling layer that makes the sales, comms, leads and finance desks work as one team." },
+    ],
+  },
+  {
     slug: "ai-machine-learning",
     title: "AI & Machine Learning",
     tagline: "Custom AI solutions that think, learn, and adapt for your business",
@@ -30,7 +247,7 @@ export const servicesData: ServiceData[] = [
     color: "text-violet-600",
     gradient: "from-violet-600 to-purple-600",
     description: "Custom AI models, intelligent chatbots, predictive analytics. Claude, GPT & bespoke LLM solutions.",
-    longDescription: "We build AI systems that go beyond basic automation. From fine-tuned language models to computer vision pipelines, our solutions are designed for production — not demos. We use Claude, GPT, and custom-trained models to solve real business problems at enterprise scale.",
+    longDescription: "We build AI systems that go beyond basic automation. From fine-tuned language models to computer vision pipelines, our solutions are designed for production — not demos. We use Claude, GPT, and custom-trained models to solve real business problems at enterprise scale. We also ship our own AI-native product, SparkVibe (vibe.codes-ai.uk) — a vibe engineering studio for Claude & Cursor — built end-to-end with this same approach.",
     benefits: [
       "40% reduction in development time with AI-assisted coding",
       "99.9% accuracy on data processing pipelines",

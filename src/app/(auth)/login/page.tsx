@@ -1,20 +1,69 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Code2 } from "lucide-react";
+import { Checkbox } from "@/components/ui/checkbox";
+import {
+  Code2,
+  Mail,
+  Lock,
+  Eye,
+  EyeOff,
+  Loader2,
+  Shield,
+  BarChart3,
+  Users,
+} from "lucide-react";
 
-export default function LoginPage() {
+const STORAGE_EMAIL = "codes-ai-login-email";
+const STORAGE_REMEMBER = "codes-ai-login-remember";
+
+const features = [
+  { icon: Users, label: "CRM & lead pipeline" },
+  { icon: BarChart3, label: "Real-time business insights" },
+  { icon: Shield, label: "Secure team workspace" },
+];
+
+const AUTH_ERROR_MESSAGES: Record<string, string> = {
+  Configuration:
+    "Authentication is misconfigured. Check that NEXTAUTH_URL matches your app URL (e.g. http://localhost:3003).",
+  CredentialsSignin: "Invalid email or password. Please try again.",
+  AccessDenied: "You do not have permission to sign in.",
+  Default: "Something went wrong during sign in. Please try again.",
+};
+
+function LoginForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [hydrated, setHydrated] = useState(false);
+
+  useEffect(() => {
+    const savedRemember = localStorage.getItem(STORAGE_REMEMBER) === "true";
+    const savedEmail = localStorage.getItem(STORAGE_EMAIL) ?? "";
+    setRememberMe(savedRemember);
+    if (savedRemember && savedEmail) {
+      setEmail(savedEmail);
+    }
+    setHydrated(true);
+  }, []);
+
+  useEffect(() => {
+    const authError = searchParams.get("error");
+    if (authError) {
+      setError(AUTH_ERROR_MESSAGES[authError] ?? AUTH_ERROR_MESSAGES.Default);
+    }
+  }, [searchParams]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -24,81 +73,229 @@ export default function LoginPage() {
     const result = await signIn("credentials", {
       email,
       password,
+      remember: rememberMe ? "true" : "false",
       redirect: false,
     });
 
     if (result?.error) {
-      setError("Invalid email or password");
+      setError("Invalid email or password. Please try again.");
       setLoading(false);
-    } else {
-      router.push("/dashboard");
+      return;
     }
+
+    if (rememberMe) {
+      localStorage.setItem(STORAGE_EMAIL, email);
+      localStorage.setItem(STORAGE_REMEMBER, "true");
+    } else {
+      localStorage.removeItem(STORAGE_EMAIL);
+      localStorage.setItem(STORAGE_REMEMBER, "false");
+    }
+
+    router.push("/dashboard");
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#FEF9F4] via-[#FFF1E8] to-[#FFDDC7]">
-      {/* Subtle pattern overlay */}
-      <div className="absolute inset-0 opacity-30" style={{
-        backgroundImage: `radial-gradient(circle at 25px 25px, rgba(212, 118, 78, 0.08) 2px, transparent 0)`,
-        backgroundSize: '50px 50px'
-      }}></div>
+    <div className="min-h-screen flex">
+      {/* Brand panel */}
+      <div className="hidden lg:flex lg:w-[45%] xl:w-[42%] relative overflow-hidden bg-gradient-to-br from-peach-50 via-white to-grape-100/50">
+        <div
+          className="absolute inset-0 opacity-40"
+          style={{
+            backgroundImage:
+              "radial-gradient(circle at 20% 30%, rgba(232,149,106,0.35) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(212,118,78,0.25) 0%, transparent 45%)",
+          }}
+        />
+        <div
+          className="absolute inset-0 opacity-[0.07]"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(255,255,255,0.8) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.8) 1px, transparent 1px)",
+            backgroundSize: "48px 48px",
+          }}
+        />
 
-      <Card className="w-full max-w-md mx-4 shadow-xl shadow-peach-200/50 border-warm-200 bg-white/90 backdrop-blur-sm">
-        <CardHeader className="text-center space-y-4">
-          <div className="mx-auto w-16 h-16 bg-gradient-to-br from-peach-400 to-peach-500 rounded-2xl flex items-center justify-center shadow-lg shadow-peach-200">
-            <Code2 className="w-8 h-8 text-white" />
+        <div className="relative z-10 flex flex-col justify-between p-12 xl:p-16 w-full">
+          <div className="flex items-center gap-3">
+            <div className="w-11 h-11 bg-gradient-to-br from-peach-400 to-peach-600 rounded-xl flex items-center justify-center shadow-lg shadow-peach-900/40">
+              <Code2 className="w-6 h-6 text-white" />
+            </div>
+            <div>
+              <p className="text-warm-800 font-bold text-lg leading-tight">CODES AI</p>
+              <p className="text-warm-600 text-xs">Private Limited</p>
+            </div>
           </div>
-          <CardTitle className="text-2xl font-bold text-warm-800">CODES AI</CardTitle>
-          <CardDescription className="text-warm-500">
-            Business Management Platform
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            {error && (
-              <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-2 rounded-lg text-sm">
-                {error}
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="space-y-6"
+          >
+            <div>
+              <h1 className="text-3xl xl:text-4xl font-bold text-warm-800 leading-tight">
+                Your business,
+                <br />
+                <span className="text-peach-600">one platform.</span>
+              </h1>
+              <p className="mt-4 text-warm-600 text-sm leading-relaxed max-w-sm">
+                CRM, lead generation, communications, and accounting — unified for modern teams.
+              </p>
+            </div>
+
+            <ul className="space-y-3">
+              {features.map(({ icon: Icon, label }, i) => (
+                <motion.li
+                  key={label}
+                  initial={{ opacity: 0, x: -12 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.2 + i * 0.08 }}
+                  className="flex items-center gap-3 text-sm text-warm-600"
+                >
+                  <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-white border border-warm-200 shadow-sm">
+                    <Icon className="w-4 h-4 text-peach-500" />
+                  </span>
+                  {label}
+                </motion.li>
+              ))}
+            </ul>
+          </motion.div>
+
+          <p className="text-warm-500 text-xs">© {new Date().getFullYear()} CODES AI · codes-ai.uk</p>
+        </div>
+      </div>
+
+      {/* Form panel */}
+      <div className="flex-1 flex items-center justify-center bg-gradient-to-br from-warm-50 via-white to-peach-50 p-6 sm:p-10">
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+          className="w-full max-w-[420px]"
+        >
+          {/* Mobile logo */}
+          <div className="lg:hidden flex items-center justify-center gap-3 mb-8">
+            <div className="w-12 h-12 bg-gradient-to-br from-peach-400 to-peach-500 rounded-2xl flex items-center justify-center shadow-lg shadow-peach-200">
+              <Code2 className="w-6 h-6 text-white" />
+            </div>
+            <div>
+              <p className="font-bold text-warm-800 text-lg leading-tight">CODES AI</p>
+              <p className="text-warm-400 text-xs">Business Management Platform</p>
+            </div>
+          </div>
+
+          <div className="bg-white/80 backdrop-blur-sm border border-warm-200/60 rounded-2xl shadow-xl shadow-peach-100/60 p-8 sm:p-10">
+            <div className="mb-8">
+              <h2 className="text-2xl font-bold text-warm-800">Welcome back</h2>
+              <p className="text-warm-500 text-sm mt-1">Sign in to access your workspace</p>
+            </div>
+
+            <form onSubmit={handleSubmit} className="space-y-5">
+              {error && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.98 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="flex items-start gap-2.5 bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-xl text-sm"
+                >
+                  <span className="mt-0.5 shrink-0">⚠</span>
+                  {error}
+                </motion.div>
+              )}
+
+              <div className="space-y-2">
+                <Label htmlFor="email" className="text-warm-700 text-sm">
+                  Email address
+                </Label>
+                <div className="relative">
+                  <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-warm-400 pointer-events-none" />
+                  <Input
+                    id="email"
+                    type="email"
+                    autoComplete="email"
+                    placeholder="you@codes-ai.uk"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    className="h-11 pl-10 bg-warm-50/80 border-warm-200 text-warm-800 placeholder:text-warm-400 focus:border-peach-400 focus:ring-peach-200/50"
+                  />
+                </div>
               </div>
-            )}
-            <div className="space-y-2">
-              <Label htmlFor="email" className="text-warm-700">Email</Label>
-              <Input
-                id="email"
-                type="email"
-                placeholder="you@codes-ai.uk"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                className="bg-warm-50 border-warm-200 text-warm-800 placeholder:text-warm-400 focus:border-peach-400 focus:ring-peach-200"
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="password" className="text-warm-700">Password</Label>
-              <Input
-                id="password"
-                type="password"
-                placeholder="Enter your password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                className="bg-warm-50 border-warm-200 text-warm-800 placeholder:text-warm-400 focus:border-peach-400 focus:ring-peach-200"
-              />
-            </div>
-            <Button
-              type="submit"
-              className="w-full bg-gradient-to-r from-peach-500 to-peach-400 hover:from-peach-600 hover:to-peach-500 text-white font-semibold shadow-md shadow-peach-200 transition-all"
-              disabled={loading}
-            >
-              {loading ? "Signing in..." : "Sign In"}
-            </Button>
-          </form>
-          <div className="mt-6 text-center">
-            <p className="text-xs text-warm-400">
-              CODES AI Private Limited | codes-ai.uk
+
+              <div className="space-y-2">
+                <Label htmlFor="password" className="text-warm-700 text-sm">
+                  Password
+                </Label>
+                <div className="relative">
+                  <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-warm-400 pointer-events-none" />
+                  <Input
+                    id="password"
+                    type={showPassword ? "text" : "password"}
+                    autoComplete="current-password"
+                    placeholder="Enter your password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    className="h-11 pl-10 pr-11 bg-warm-50/80 border-warm-200 text-warm-800 placeholder:text-warm-400 focus:border-peach-400 focus:ring-peach-200/50"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword((v) => !v)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 p-1 rounded-md text-warm-400 hover:text-warm-600 hover:bg-warm-100 transition-colors"
+                    aria-label={showPassword ? "Hide password" : "Show password"}
+                  >
+                    {showPassword ? (
+                      <EyeOff className="w-4 h-4" />
+                    ) : (
+                      <Eye className="w-4 h-4" />
+                    )}
+                  </button>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2.5">
+                <Checkbox
+                  id="remember"
+                  checked={hydrated ? rememberMe : false}
+                  onCheckedChange={(checked) => setRememberMe(checked === true)}
+                  className="border-warm-300 data-checked:bg-peach-500 data-checked:border-peach-500"
+                />
+                <Label
+                  htmlFor="remember"
+                  className="text-sm text-warm-600 font-normal cursor-pointer select-none"
+                >
+                  Remember me on this device
+                </Label>
+              </div>
+
+              <Button
+                type="submit"
+                disabled={loading}
+                className="w-full h-11 bg-gradient-to-r from-peach-500 to-peach-400 hover:from-peach-600 hover:to-peach-500 text-white font-semibold shadow-md shadow-peach-200/80 transition-all rounded-xl"
+              >
+                {loading ? (
+                  <>
+                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                    Signing in...
+                  </>
+                ) : (
+                  "Sign in"
+                )}
+              </Button>
+            </form>
+
+            <p className="mt-6 text-center text-xs text-warm-400">
+              Protected workspace · CODES AI Private Limited
             </p>
           </div>
-        </CardContent>
-      </Card>
+        </motion.div>
+      </div>
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={null}>
+      <LoginForm />
+    </Suspense>
   );
 }

@@ -12,11 +12,26 @@ const FadeIn = ({ children, delay = 0, className = "" }: { children: React.React
   </motion.div>
 );
 
+/* ── Spotlight card wrapper — radial glow follows the pointer ── */
+function Spotlight({ children, className = "", as: Tag = "div", ...rest }: { children: React.ReactNode; className?: string; as?: "div" | "a"; [k: string]: unknown }) {
+  const onMove = (e: React.MouseEvent<HTMLElement>) => {
+    const r = e.currentTarget.getBoundingClientRect();
+    e.currentTarget.style.setProperty("--mx", `${e.clientX - r.left}px`);
+    e.currentTarget.style.setProperty("--my", `${e.clientY - r.top}px`);
+  };
+  const Comp = Tag as "div";
+  return (
+    <Comp onMouseMove={onMove} className={`spotlight ${className}`} {...rest}>
+      {children}
+    </Comp>
+  );
+}
+
 export default function CaseStudiesPage() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-[#FEFAF6]">
+    <div className="grain min-h-screen bg-warm-50">
       {/* Nav */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-lg border-b border-warm-100/60">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-14 sm:h-16 flex items-center justify-between">
@@ -27,7 +42,7 @@ export default function CaseStudiesPage() {
             <span className="font-bold text-warm-800 text-base tracking-tight">CODES<span className="text-peach-500">AI</span></span>
           </Link>
           <div className="hidden md:flex items-center gap-6">
-            {[["Services", "/services"], ["Case Studies", "/case-studies"], ["About", "/about"]].map(([l, h]) => (
+            {[["Studio", "/studio"], ["Services", "/services"], ["Case Studies", "/case-studies"], ["About", "/about"]].map(([l, h]) => (
               <Link key={l} href={h} className={`text-sm font-medium ${h === "/case-studies" ? "text-peach-600" : "text-warm-500 hover:text-peach-600"} transition-colors`}>{l}</Link>
             ))}
             <Link href="/login" className="text-sm font-semibold text-white bg-gradient-to-r from-peach-500 to-peach-600 px-4 py-2 rounded-lg shadow-md">Portal</Link>
@@ -40,7 +55,7 @@ export default function CaseStudiesPage() {
           {menuOpen && (
             <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} className="md:hidden bg-white border-t overflow-hidden">
               <div className="px-4 py-3 space-y-1">
-                {[["Services", "/services"], ["Case Studies", "/case-studies"], ["About CEO", "/about"]].map(([l, h]) => (
+                {[["Studio", "/studio"], ["Services", "/services"], ["Case Studies", "/case-studies"], ["About CEO", "/about"]].map(([l, h]) => (
                   <Link key={l} href={h} onClick={() => setMenuOpen(false)} className="block px-3 py-3 text-base font-medium text-warm-700 rounded-lg">{l}</Link>
                 ))}
                 <Link href="/login" onClick={() => setMenuOpen(false)} className="block mt-2 text-center text-sm font-semibold text-white bg-peach-500 py-3 rounded-xl">Client Portal</Link>
@@ -50,8 +65,9 @@ export default function CaseStudiesPage() {
         </AnimatePresence>
       </nav>
 
-      {/* Hero — light warm background */}
+      {/* Hero — light warm background + aurora accent */}
       <section className="pt-20 sm:pt-24 pb-8 sm:pb-12 bg-white relative overflow-hidden">
+        <div className="absolute -top-1/2 left-1/2 -translate-x-1/2 w-[120%] aspect-[2/1] aurora-bg opacity-20 pointer-events-none" aria-hidden />
         <div className="absolute -top-32 -right-32 w-64 sm:w-96 h-64 sm:h-96 rounded-full bg-peach-100/60 blur-3xl" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10 text-center">
           <FadeIn>
@@ -59,7 +75,7 @@ export default function CaseStudiesPage() {
               <Award className="w-3.5 h-3.5 text-peach-500" />
               <span className="text-[11px] sm:text-xs font-semibold text-peach-700">CASE STUDIES</span>
             </span>
-            <h1 className="text-2xl sm:text-4xl lg:text-5xl font-bold text-warm-800 tracking-tight">
+            <h1 className="text-[length:var(--text-display)] font-bold text-warm-800 tracking-tight text-balance">
               Real projects. <span className="text-peach-500">Real results.</span>
             </h1>
             <p className="mt-3 text-sm sm:text-base text-warm-500 max-w-xl mx-auto leading-relaxed">
@@ -69,60 +85,80 @@ export default function CaseStudiesPage() {
         </div>
       </section>
 
-      {/* Case Study Cards */}
+      {/* Case Study Cards — BENTO gallery */}
       <section className="py-6 sm:py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-            {caseStudies.map((cs, i) => (
-              <FadeIn key={cs.slug} delay={i * 0.08}>
-                <Link href={`/case-studies/${cs.slug}`} className="group block bg-white rounded-2xl border border-warm-100 hover:border-peach-200 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden h-full">
-                  {/* Gradient header */}
-                  <div className={`bg-gradient-to-r ${cs.gradient} p-5 sm:p-6 relative overflow-hidden`}>
-                    <div className="absolute -right-8 -top-8 w-24 sm:w-32 h-24 sm:h-32 bg-white/10 rounded-full blur-2xl" />
-                    <div className="relative z-10">
-                      <div className="flex flex-wrap gap-2 mb-3">
-                        <span className="text-[10px] sm:text-xs font-bold text-white bg-white/20 backdrop-blur-sm px-2.5 py-0.5 rounded-full">{cs.category}</span>
-                        <span className="text-[10px] sm:text-xs font-semibold text-white/90 bg-white/10 px-2.5 py-0.5 rounded-full">{cs.value}</span>
-                      </div>
-                      <p className="text-white/70 text-xs sm:text-sm">{cs.client}</p>
-                      <h3 className="text-lg sm:text-xl font-bold text-white">{cs.title}</h3>
-                    </div>
-                  </div>
-
-                  {/* Body */}
-                  <div className="p-5 sm:p-6">
-                    {/* Big metric */}
-                    <div className="flex items-end gap-2 mb-3">
-                      <span className="text-3xl sm:text-4xl font-extrabold text-warm-800">{cs.heroMetric}</span>
-                      <span className="text-xs sm:text-sm text-warm-500 pb-1">{cs.heroMetricLabel}</span>
-                    </div>
-
-                    <p className="text-sm text-warm-500 leading-relaxed mb-4 line-clamp-2">{cs.summary}</p>
-
-                    {/* Tech */}
-                    <div className="flex flex-wrap gap-1.5 mb-4">
-                      {cs.techStack.slice(0, 5).map((t) => (
-                        <span key={t} className="text-[10px] sm:text-xs font-medium text-warm-600 bg-warm-50 border border-warm-200 px-2 py-0.5 rounded-md">{t}</span>
-                      ))}
-                    </div>
-
-                    {/* Results preview */}
-                    <div className="grid grid-cols-2 gap-2 mb-4">
-                      {cs.results.slice(0, 2).map((r) => (
-                        <div key={r.label} className="bg-[#FEFAF6] rounded-lg p-2.5 border border-warm-100">
-                          <p className="text-base sm:text-lg font-bold text-warm-800">{r.metric}</p>
-                          <p className="text-[9px] sm:text-[10px] text-warm-500">{r.label}</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+            {caseStudies.map((cs, i) => {
+              const isFlagship = i === 0;
+              return (
+                <motion.div
+                  key={cs.slug}
+                  className={isFlagship ? "md:col-span-2" : ""}
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-60px" }}
+                  transition={{ delay: i * 0.08, duration: 0.5, ease: "easeOut" }}
+                >
+                  <Spotlight as="a" href={`/case-studies/${cs.slug}`} className="group block bg-white rounded-2xl border border-warm-100 hover:border-peach-200 hover:shadow-2xl hover:shadow-peach-100/40 transition-all duration-300 hover:-translate-y-1.5 overflow-hidden h-full">
+                    <div className={isFlagship ? "md:flex" : ""}>
+                      {/* Gradient header */}
+                      <div className={`bg-gradient-to-br ${cs.gradient} p-5 sm:p-6 relative overflow-hidden ${isFlagship ? "md:w-1/2 md:p-8 flex flex-col justify-between" : ""}`}>
+                        <div className="absolute -right-8 -top-8 w-24 sm:w-32 h-24 sm:h-32 bg-white/10 rounded-full blur-2xl" />
+                        <div className="relative z-10">
+                          <div className="flex flex-wrap gap-2 mb-3">
+                            {isFlagship && <span className="text-[10px] sm:text-xs font-bold text-white bg-white/25 backdrop-blur-sm px-2.5 py-0.5 rounded-full">★ FLAGSHIP</span>}
+                            <span className="text-[10px] sm:text-xs font-bold text-white bg-white/20 backdrop-blur-sm px-2.5 py-0.5 rounded-full">{cs.category}</span>
+                            <span className="text-[10px] sm:text-xs font-semibold text-white/90 bg-white/10 px-2.5 py-0.5 rounded-full">{cs.value}</span>
+                          </div>
+                          <p className="text-white/70 text-xs sm:text-sm">{cs.client}</p>
+                          <h3 className={`font-bold text-white ${isFlagship ? "text-2xl sm:text-3xl mt-1" : "text-lg sm:text-xl"}`}>{cs.title}</h3>
                         </div>
-                      ))}
-                    </div>
+                        {isFlagship && (
+                          <div className="relative z-10 mt-6">
+                            <p className="text-4xl sm:text-5xl font-extrabold text-white leading-none">{cs.heroMetric}</p>
+                            <p className="text-sm text-white/80 mt-1">{cs.heroMetricLabel}</p>
+                          </div>
+                        )}
+                      </div>
 
-                    <span className="text-peach-500 text-sm font-semibold flex items-center gap-1 group-hover:gap-2 transition-all">
-                      View full case study <ArrowUpRight className="w-4 h-4" />
-                    </span>
-                  </div>
-                </Link>
-              </FadeIn>
-            ))}
+                      {/* Body */}
+                      <div className={`relative z-10 p-5 sm:p-6 ${isFlagship ? "md:w-1/2 md:p-8" : ""}`}>
+                        {!isFlagship && (
+                          <div className="flex items-end gap-2 mb-3">
+                            <span className="text-3xl sm:text-4xl font-extrabold text-warm-800">{cs.heroMetric}</span>
+                            <span className="text-xs sm:text-sm text-warm-500 pb-1">{cs.heroMetricLabel}</span>
+                          </div>
+                        )}
+
+                        <p className={`text-sm text-warm-500 leading-relaxed mb-4 ${isFlagship ? "" : "line-clamp-2"}`}>{cs.summary}</p>
+
+                        {/* Tech */}
+                        <div className="flex flex-wrap gap-1.5 mb-4">
+                          {cs.techStack.slice(0, isFlagship ? 8 : 5).map((t) => (
+                            <span key={t} className="text-[10px] sm:text-xs font-medium text-warm-600 bg-warm-50 border border-warm-200 px-2 py-0.5 rounded-md">{t}</span>
+                          ))}
+                        </div>
+
+                        {/* Results preview */}
+                        <div className={`grid gap-2 mb-4 ${isFlagship ? "grid-cols-2 sm:grid-cols-4" : "grid-cols-2"}`}>
+                          {cs.results.slice(0, isFlagship ? 4 : 2).map((r) => (
+                            <div key={r.label} className="bg-warm-50 rounded-lg p-2.5 border border-warm-100">
+                              <p className="text-base sm:text-lg font-bold text-warm-800">{r.metric}</p>
+                              <p className="text-[9px] sm:text-[10px] text-warm-500">{r.label}</p>
+                            </div>
+                          ))}
+                        </div>
+
+                        <span className="text-peach-500 text-sm font-semibold flex items-center gap-1 group-hover:gap-2 transition-all">
+                          View full case study <ArrowUpRight className="w-4 h-4" />
+                        </span>
+                      </div>
+                    </div>
+                  </Spotlight>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -150,13 +186,13 @@ export default function CaseStudiesPage() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-warm-800 py-6">
+      <footer className="bg-warm-50 border-t border-warm-200 py-6">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-3">
           <Link href="/" className="flex items-center gap-2">
             <div className="w-7 h-7 bg-gradient-to-br from-peach-400 to-peach-600 rounded-lg flex items-center justify-center"><Code2 className="w-3.5 h-3.5 text-white" /></div>
-            <span className="font-bold text-white text-sm">CODES<span className="text-peach-400">AI</span></span>
+            <span className="font-bold text-warm-800 text-sm">CODES<span className="text-peach-500">AI</span></span>
           </Link>
-          <p className="text-[10px] text-warm-400">&copy; 2026 CODES AI LIMITED (16078672)</p>
+          <p className="text-[10px] text-warm-500">&copy; 2026 CODES AI LIMITED (16078672)</p>
         </div>
       </footer>
     </div>

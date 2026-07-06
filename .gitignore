@@ -32,6 +32,12 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+# secrets not matched by .env* (does not start with ".env")
+prod.env
+
+# release/source bundle artifacts
+src-bundle.tar.gz
+*.tar.gz
 
 # vercel
 .vercel

@@ -127,12 +127,44 @@ const career = [
 ];
 
 const achievements = [
+  { icon: Rocket, title: "SparkVibe — AI Studio Shipped", stat: "4", statLabel: "platforms shipped", description: "Vibe-coded a complete AI-native development studio (vibe.codes-ai.uk) end-to-end — Context Vault, DB Logic Explorer, Prompt A/B Lab — live on Web, Windows, macOS & Android." },
+  { icon: Globe, title: "ACCA — Remote Accounting", stat: "100%", statLabel: "remote, worldwide", description: "Built a fully-remote accounting platform (acca.codes-ai.uk) delivering VAT invoicing, expenses and reporting to clients anywhere in the world, in any timezone." },
   { icon: Bot, title: "AI Development Framework", stat: "40%", statLabel: "faster development", description: "Pioneered AI-assisted development using local LLMs to automate data warehouse design, ETL pipelines, and cloud infrastructure code." },
   { icon: Database, title: "Delta Lakehouse at Scale", stat: "99.9%", statLabel: "data accuracy", description: "Built Delta Lakehouse for billions of sensor JSON files with ACID compliance and 60% faster runtime." },
   { icon: TrendingUp, title: "SAP-to-Azure Integration", stat: "\u20AC120K", statLabel: "annual savings", description: "SAP-to-Azure integrations for Carl Zeiss, E.ON, VW delivering 50% faster analytics." },
   { icon: Zap, title: "Real-Time IoT Streaming", stat: "99%", statLabel: "real-time processing", description: "Event Hubs, Kafka, and Databricks streaming pipelines for enterprise IoT data." },
   { icon: Layers, title: "Microsoft Fabric at Scale", stat: "250+", statLabel: "products controlled", description: "Designed Microsoft Fabric solutions controlling 250+ products with automated ETL/ELT architecture." },
   { icon: LineChart, title: "TB-Scale Optimization", stat: "40%", statLabel: "cost reduction", description: "Optimized terabyte-scale data with advanced partitioning achieving 40% query performance improvements." },
+];
+
+const products = [
+  {
+    icon: Rocket,
+    name: "SparkVibe",
+    url: "https://vibe.codes-ai.uk",
+    domain: "vibe.codes-ai.uk",
+    tagline: "The vibe engineering studio for teams that ship",
+    description: "Vibe-coded a complete AI-native development studio — turning code repositories and databases into plain-English docs, knowledge packs, and SDLC-ready context for Claude & Cursor. Features a Context Vault, Database Logic Explorer, Code-to-Requirements, a Prompt A/B Lab, multi-workspace teams, and remote device control. Shipped across Web, Windows, macOS, and Android.",
+    gradient: "from-peach-500 to-peach-600",
+  },
+  {
+    icon: Globe,
+    name: "ACCA",
+    url: "https://acca.codes-ai.uk",
+    domain: "acca.codes-ai.uk",
+    tagline: "Fully-remote accounting, anywhere in the world",
+    description: "Built a fully-remote accounting and bookkeeping platform serving clients worldwide — VAT-ready invoicing, expense tracking, and management reporting delivered entirely remotely, across any timezone. A complete back-office finance operation as software.",
+    gradient: "from-emerald-500 to-teal-600",
+  },
+  {
+    icon: CircuitBoard,
+    name: "Artizai",
+    url: "https://artizai.uk",
+    domain: "artizai.uk",
+    tagline: "A CODES AI product platform",
+    description: "Designed and built as part of the CODES AI product portfolio — an AI-driven platform engineered end-to-end with the same vibe-coding approach that powers our infrastructure and remote-operations software.",
+    gradient: "from-violet-500 to-purple-600",
+  },
 ];
 
 const clients = [
@@ -342,7 +374,7 @@ export default function AboutPage() {
             </div>
           </Link>
           <div className="hidden lg:flex items-center gap-8">
-            {[["Services", "/#services"], ["Our Work", "/#portfolio"], ["About", "/about"], ["Contact", "/#contact"]].map(([label, href]) => (
+            {[["Studio", "/studio"], ["Services", "/#services"], ["Our Work", "/#portfolio"], ["About", "/about"], ["Contact", "/#contact"]].map(([label, href]) => (
               <Link key={label} href={href} className={`text-sm font-medium transition-colors relative group ${label === "About" ? "text-peach-600" : "text-warm-500 hover:text-peach-600"}`}>
                 {label}
                 <span className={`absolute -bottom-1 left-0 h-0.5 bg-peach-500 transition-all duration-300 ${label === "About" ? "w-full" : "w-0 group-hover:w-full"}`} />
@@ -361,7 +393,7 @@ export default function AboutPage() {
         <AnimatePresence>
           {mobileMenu && (
             <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="lg:hidden bg-white border-t border-warm-100 px-6 py-4 space-y-3">
-              {[["Services", "/#services"], ["Our Work", "/#portfolio"], ["About", "/about"], ["Contact", "/#contact"]].map(([label, href]) => (
+              {[["Studio", "/studio"], ["Services", "/#services"], ["Our Work", "/#portfolio"], ["About", "/about"], ["Contact", "/#contact"]].map(([label, href]) => (
                 <Link key={label} href={href} onClick={() => setMobileMenu(false)} className="block text-sm font-medium text-warm-600 py-2">{label}</Link>
               ))}
               <Link href="/login" className="block text-center text-sm font-semibold text-white bg-peach-500 px-5 py-2.5 rounded-xl">Client Portal</Link>
@@ -371,7 +403,7 @@ export default function AboutPage() {
       </nav>
 
       {/* ═══ HERO ═══ */}
-      <section ref={heroRef} className="relative min-h-[90vh] flex items-center pt-16 overflow-hidden bg-gradient-to-br from-warm-900 via-warm-800 to-warm-900">
+      <section ref={heroRef} className="relative min-h-[90vh] flex items-center pt-16 overflow-hidden bg-gradient-to-b from-white via-peach-50/40 to-warm-50">
         <FloatingParticles />
         {/* Gradient orbs */}
         <div className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full bg-peach-500/10 blur-[120px]" />
@@ -383,17 +415,17 @@ export default function AboutPage() {
             {/* Left - Profile */}
             <div className="lg:col-span-3">
               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
-                className="inline-flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-4 py-1.5 mb-6 backdrop-blur-sm"
+                className="inline-flex items-center gap-2 bg-white border border-warm-200 rounded-full px-4 py-1.5 mb-6 backdrop-blur-sm"
               >
                 <span className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
-                <span className="text-xs font-semibold text-warm-300">Meet the Founder</span>
+                <span className="text-xs font-semibold text-warm-600">Meet the Founder</span>
               </motion.div>
 
               <motion.h1
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2, duration: 0.7 }}
-                className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white leading-[1.05] tracking-tight"
+                className="text-5xl sm:text-6xl lg:text-7xl font-bold text-warm-800 leading-[1.05] tracking-tight"
               >
                 Avais Ahmad
                 <br />
@@ -406,7 +438,7 @@ export default function AboutPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.35 }}
-                className="mt-3 text-xl text-warm-300 font-medium"
+                className="mt-3 text-xl text-warm-600 font-medium"
               >
                 CEO & Founder, CODES AI LIMITED{" "}
                 <span className="text-warm-500 text-sm">(Company No. 16078672)</span>
@@ -416,10 +448,10 @@ export default function AboutPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.45 }}
-                className="mt-6 text-warm-400 leading-relaxed max-w-2xl text-lg"
+                className="mt-6 text-warm-500 leading-relaxed max-w-2xl text-lg"
               >
                 Senior Data Engineer with{" "}
-                <strong className="text-white font-semibold">12+ years</strong> of experience
+                <strong className="text-warm-800 font-semibold">12+ years</strong> of experience
                 designing and optimising large-scale data platforms across Azure, Databricks, and
                 enterprise ecosystems. Proven track record of building scalable ETL/ELT pipelines,
                 Delta Lakehouse architectures, and delivering real-time analytics solutions that
@@ -430,19 +462,19 @@ export default function AboutPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.55 }}
-                className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-3 text-sm text-warm-400"
+                className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-3 text-sm text-warm-500"
               >
                 <div className="flex items-center gap-1.5">
-                  <MapPin className="w-4 h-4 text-peach-400" /> London, UK
+                  <MapPin className="w-4 h-4 text-peach-500" /> London, UK
                 </div>
                 <div className="flex items-center gap-1.5">
-                  <Globe className="w-4 h-4 text-peach-400" /> German Nationality
+                  <Globe className="w-4 h-4 text-peach-500" /> German Nationality
                 </div>
                 <div className="flex items-center gap-1.5">
-                  <Phone className="w-4 h-4 text-peach-400" /> +44 7586 094540
+                  <Phone className="w-4 h-4 text-peach-500" /> +44 7586 094540
                 </div>
                 <div className="flex items-center gap-1.5">
-                  <GraduationCap className="w-4 h-4 text-peach-400" /> Dual M.Sc.
+                  <GraduationCap className="w-4 h-4 text-peach-500" /> Dual M.Sc.
                 </div>
               </motion.div>
 
@@ -455,7 +487,7 @@ export default function AboutPage() {
                 <a href="mailto:info@codes-ai.uk" className="inline-flex items-center gap-2 bg-gradient-to-r from-peach-500 to-peach-400 text-white font-semibold px-7 py-3.5 rounded-xl shadow-xl shadow-peach-500/20 hover:-translate-y-1 hover:shadow-2xl hover:shadow-peach-500/30 transition-all duration-300 text-sm">
                   <Mail className="w-4 h-4" /> Get in Touch
                 </a>
-                <Link href="/#portfolio" className="inline-flex items-center gap-2 bg-white/5 border border-white/15 text-white font-medium px-7 py-3.5 rounded-xl hover:bg-white/10 transition-all text-sm backdrop-blur-sm">
+                <Link href="/#portfolio" className="inline-flex items-center gap-2 bg-white border border-warm-200 text-warm-700 hover:border-peach-300 hover:bg-peach-50 shadow-sm font-medium px-7 py-3.5 rounded-xl transition-all text-sm">
                   View Projects <ArrowUpRight className="w-4 h-4" />
                 </Link>
               </motion.div>
@@ -472,7 +504,7 @@ export default function AboutPage() {
                 {/* Glow effect behind card */}
                 <div className="absolute -inset-4 bg-gradient-to-br from-peach-500/20 to-violet-500/10 rounded-[2rem] blur-2xl" />
 
-                <div className="relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-3xl p-8 border border-white/10 shadow-2xl">
+                <div className="relative bg-white border border-warm-200 shadow-xl rounded-3xl p-8">
                   {/* Monogram */}
                   <motion.div
                     initial={{ scale: 0 }}
@@ -484,8 +516,8 @@ export default function AboutPage() {
                   </motion.div>
 
                   <div className="text-center mt-5">
-                    <h2 className="text-xl font-bold text-white">Avais Ahmad Qarni</h2>
-                    <p className="text-sm text-peach-400 font-medium mt-1">CEO & Founder</p>
+                    <h2 className="text-xl font-bold text-warm-800">Avais Ahmad Qarni</h2>
+                    <p className="text-sm text-peach-500 font-medium mt-1">CEO & Founder</p>
                   </div>
 
                   {/* Languages */}
@@ -495,8 +527,8 @@ export default function AboutPage() {
                       { lang: "German", level: "B1" },
                       { lang: "Urdu", level: "Native" },
                     ].map((l) => (
-                      <span key={l.lang} className="px-2.5 py-1 bg-white/5 border border-white/10 rounded-lg text-[10px] text-warm-300">
-                        {l.lang} <span className="text-peach-400">{l.level}</span>
+                      <span key={l.lang} className="px-2.5 py-1 bg-warm-50 border border-warm-100 rounded-lg text-[10px] text-warm-600">
+                        {l.lang} <span className="text-peach-500">{l.level}</span>
                       </span>
                     ))}
                   </div>
@@ -509,13 +541,13 @@ export default function AboutPage() {
                         initial={{ opacity: 0, y: 15 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.7 + i * 0.1 }}
-                        className="text-center p-3 bg-white/5 rounded-xl border border-white/10 hover:bg-white/10 transition-colors group"
+                        className="text-center p-3 bg-warm-50 rounded-xl border border-warm-100 transition-colors group"
                       >
-                        <s.icon className="w-4 h-4 text-peach-400 mx-auto mb-1.5 group-hover:scale-110 transition-transform" />
-                        <p className="text-xl font-bold text-white">
+                        <s.icon className="w-4 h-4 text-peach-500 mx-auto mb-1.5 group-hover:scale-110 transition-transform" />
+                        <p className="text-xl font-bold text-warm-800">
                           <Counter target={s.value} suffix={s.suffix} prefix={s.prefix} />
                         </p>
-                        <p className="text-[10px] text-warm-400 mt-0.5">{s.label}</p>
+                        <p className="text-[10px] text-warm-500 mt-0.5">{s.label}</p>
                       </motion.div>
                     ))}
                   </div>
@@ -523,7 +555,7 @@ export default function AboutPage() {
                   {/* Quick Tags */}
                   <div className="mt-5 flex flex-wrap gap-1.5 justify-center">
                     {["Azure", "Databricks", "AI/ML", "Python", "SAP", "Power BI"].map((t) => (
-                      <span key={t} className="px-2.5 py-1 bg-white/5 rounded-lg text-xs text-warm-300 border border-white/5 hover:border-peach-400/30 hover:text-peach-300 transition-colors cursor-default">{t}</span>
+                      <span key={t} className="px-2.5 py-1 bg-warm-50 rounded-lg text-xs text-warm-600 border border-warm-100 hover:border-peach-400/30 hover:text-peach-500 transition-colors cursor-default">{t}</span>
                     ))}
                   </div>
                 </div>
@@ -538,9 +570,9 @@ export default function AboutPage() {
           animate={{ y: [0, 8, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
         >
-          <div className="w-6 h-10 rounded-full border-2 border-white/20 flex items-start justify-center p-1.5">
+          <div className="w-6 h-10 rounded-full border-2 border-warm-200 flex items-start justify-center p-1.5">
             <motion.div
-              className="w-1.5 h-1.5 rounded-full bg-peach-400"
+              className="w-1.5 h-1.5 rounded-full bg-peach-500"
               animate={{ y: [0, 16, 0] }}
               transition={{ duration: 2, repeat: Infinity }}
             />
@@ -568,7 +600,7 @@ export default function AboutPage() {
           <motion.div variants={container} initial="hidden" whileInView="show" viewport={{ once: true }} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {achievements.map((a) => (
               <motion.div key={a.title} variants={item}
-                className="group relative p-6 rounded-2xl bg-[#FEFAF6] border border-warm-100 hover:border-peach-200 hover:shadow-2xl hover:shadow-peach-100/40 transition-all duration-500 hover:-translate-y-2"
+                className="group relative p-6 rounded-2xl bg-warm-50 border border-warm-100 hover:border-peach-200 hover:shadow-2xl hover:shadow-peach-100/40 transition-all duration-500 hover:-translate-y-2"
               >
                 {/* Hover gradient overlay */}
                 <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-peach-50/0 to-peach-100/0 group-hover:from-peach-50/50 group-hover:to-peach-100/30 transition-all duration-500" />
@@ -592,14 +624,59 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* ═══ PRODUCTS & VENTURES ═══ */}
+      <section className="py-16 sm:py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-6">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-14">
+            <span className="inline-flex items-center gap-2 bg-peach-50 border border-peach-200 rounded-full px-4 py-1.5 mb-5">
+              <Rocket className="w-3.5 h-3.5 text-peach-500" />
+              <span className="text-xs font-semibold text-peach-700">Products & Ventures</span>
+            </span>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-warm-800 tracking-tight">
+              Products I&apos;ve <span className="text-peach-500">vibe-coded &amp; shipped</span>
+            </h2>
+            <p className="mt-4 text-lg text-warm-500 max-w-2xl mx-auto">
+              Live software products of CODES AI LIMITED — from a complete AI-native development studio to a fully-remote accounting platform serving clients worldwide.
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            {products.map((p, i) => (
+              <motion.a
+                key={p.name}
+                href={p.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.08 }}
+                className="group block p-7 rounded-2xl bg-warm-50 border border-warm-100 hover:border-peach-200 hover:shadow-2xl hover:shadow-peach-100/40 transition-all duration-500 hover:-translate-y-2 h-full"
+              >
+                <div className="flex items-center justify-between mb-5">
+                  <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${p.gradient} flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform`}>
+                    <p.icon className="w-7 h-7 text-white" />
+                  </div>
+                  <ArrowUpRight className="w-5 h-5 text-warm-300 group-hover:text-peach-500 transition-colors" />
+                </div>
+                <h3 className="text-xl font-bold text-warm-800">{p.name}</h3>
+                <p className="text-xs font-mono text-peach-500 mb-3">{p.domain}</p>
+                <p className="text-sm font-semibold text-warm-700 mb-2">{p.tagline}</p>
+                <p className="text-sm text-warm-500 leading-relaxed">{p.description}</p>
+              </motion.a>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ═══ ENTERPRISE CLIENTS ═══ */}
-      <section className="py-16 bg-gradient-to-br from-warm-800 via-warm-900 to-warm-800 relative overflow-hidden">
+      <section className="py-16 bg-warm-50 relative overflow-hidden">
         <div className="absolute top-0 right-1/4 w-96 h-96 bg-peach-500/5 rounded-full blur-3xl" />
         <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-violet-500/5 rounded-full blur-3xl" />
 
         <div className="max-w-7xl mx-auto px-6 relative z-10">
           <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
-            className="text-center text-sm font-semibold text-warm-400 uppercase tracking-[0.2em] mb-10"
+            className="text-center text-sm font-semibold text-warm-500 uppercase tracking-[0.2em] mb-10"
           >
             Trusted by Industry Leaders
           </motion.p>
@@ -608,9 +685,9 @@ export default function AboutPage() {
           >
             {clients.map((c) => (
               <motion.div key={c} variants={item} whileHover={{ scale: 1.05, y: -2 }}
-                className="px-6 py-3.5 bg-white/5 border border-white/10 rounded-xl text-white font-medium text-sm hover:bg-white/10 hover:border-peach-400/30 transition-all cursor-default backdrop-blur-sm"
+                className="px-6 py-3.5 bg-white border border-warm-200 rounded-xl text-warm-800 font-medium text-sm hover:border-peach-400/30 transition-all cursor-default"
               >
-                <Building2 className="w-4 h-4 inline mr-2 text-peach-400" />{c}
+                <Building2 className="w-4 h-4 inline mr-2 text-peach-500" />{c}
               </motion.div>
             ))}
           </motion.div>
@@ -618,7 +695,7 @@ export default function AboutPage() {
       </section>
 
       {/* ═══ DATA ENGINEERING PROCESS (Medallion Architecture) ═══ */}
-      <section className="py-24 bg-[#FEFAF6] relative overflow-hidden">
+      <section className="py-24 bg-warm-50 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-peach-100/30 rounded-full blur-[100px] pointer-events-none" />
         <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-violet-100/20 rounded-full blur-[100px] pointer-events-none" />
 
@@ -666,7 +743,7 @@ export default function AboutPage() {
                 variants={item}
                 onMouseEnter={() => setActiveExpertise(i)}
                 onMouseLeave={() => setActiveExpertise(null)}
-                className={`relative bg-[#FEFAF6] rounded-2xl border p-6 transition-all duration-500 cursor-default ${activeExpertise === i ? "border-peach-200 shadow-2xl shadow-peach-100/40 -translate-y-2 scale-[1.02]" : "border-warm-100 hover:border-peach-200 hover:shadow-lg"}`}
+                className={`relative bg-warm-50 rounded-2xl border p-6 transition-all duration-500 cursor-default ${activeExpertise === i ? "border-peach-200 shadow-2xl shadow-peach-100/40 -translate-y-2 scale-[1.02]" : "border-warm-100 hover:border-peach-200 hover:shadow-lg"}`}
               >
                 <div className="flex items-center gap-3 mb-5 pb-4 border-b border-warm-100">
                   <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${group.gradient} flex items-center justify-center shadow-lg transition-transform duration-300 ${activeExpertise === i ? "scale-110 rotate-3" : ""}`}>
@@ -695,7 +772,7 @@ export default function AboutPage() {
       </section>
 
       {/* ═══ CAREER TIMELINE ═══ */}
-      <section className="py-24 bg-[#FEFAF6] relative overflow-hidden">
+      <section className="py-24 bg-warm-50 relative overflow-hidden">
         <div className="absolute top-1/4 right-0 w-[400px] h-[400px] bg-peach-100/30 rounded-full blur-[100px] pointer-events-none" />
 
         <div className="max-w-4xl mx-auto px-6 relative z-10">
@@ -730,7 +807,7 @@ export default function AboutPage() {
                   <div className="hidden sm:flex flex-col items-center">
                     <motion.div
                       whileHover={{ scale: 1.15, rotate: 5 }}
-                      className={`w-12 h-12 rounded-xl bg-gradient-to-br ${job.color} flex items-center justify-center shadow-lg shrink-0 transition-all duration-300 ${job.isCurrent ? "ring-2 ring-peach-300 ring-offset-2 ring-offset-[#FEFAF6]" : ""}`}
+                      className={`w-12 h-12 rounded-xl bg-gradient-to-br ${job.color} flex items-center justify-center shadow-lg shrink-0 transition-all duration-300 ${job.isCurrent ? "ring-2 ring-peach-300 ring-offset-2 ring-offset-warm-50" : ""}`}
                     >
                       {job.isCurrent ? <Rocket className="w-5 h-5 text-white" /> : <Briefcase className="w-5 h-5 text-white" />}
                     </motion.div>
@@ -782,7 +859,7 @@ export default function AboutPage() {
           >
             {education.map((edu) => (
               <motion.div key={edu.degree} variants={item} whileHover={{ scale: 1.03, y: -4 }}
-                className="bg-[#FEFAF6] rounded-2xl border border-warm-100 p-6 text-center hover:shadow-xl hover:border-peach-200 transition-all duration-300 group"
+                className="bg-warm-50 rounded-2xl border border-warm-100 p-6 text-center hover:shadow-xl hover:border-peach-200 transition-all duration-300 group"
               >
                 <div className="w-14 h-14 bg-gradient-to-br from-peach-50 to-peach-100 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:from-peach-100 group-hover:to-peach-200 transition-colors group-hover:scale-110 group-hover:rotate-3">
                   <GraduationCap className="w-7 h-7 text-peach-500" />
@@ -800,7 +877,7 @@ export default function AboutPage() {
       </section>
 
       {/* ═══ CTA ═══ */}
-      <section className="py-24 bg-gradient-to-br from-warm-800 via-warm-900 to-warm-800 relative overflow-hidden">
+      <section className="py-24 bg-warm-50 relative overflow-hidden">
         <div className="absolute top-0 right-1/4 w-96 h-96 bg-peach-500/5 rounded-full blur-3xl" />
         <div className="absolute bottom-0 left-1/3 w-96 h-96 bg-violet-500/5 rounded-full blur-3xl" />
         <FloatingParticles />
@@ -822,12 +899,12 @@ export default function AboutPage() {
             <Rocket className="w-8 h-8 text-white" />
           </motion.div>
 
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-5 tracking-tight leading-tight">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-warm-800 mb-5 tracking-tight leading-tight">
             Let&apos;s build your next
             <br />
             <span className="bg-gradient-to-r from-peach-400 via-amber-400 to-peach-300 bg-clip-text text-transparent">data platform</span>
           </h2>
-          <p className="text-warm-400 max-w-lg mx-auto mb-10 text-lg leading-relaxed">
+          <p className="text-warm-500 max-w-lg mx-auto mb-10 text-lg leading-relaxed">
             12+ years of enterprise data engineering expertise.
             From Delta Lakehouse to real-time streaming, I deliver solutions that scale.
           </p>
@@ -844,7 +921,7 @@ export default function AboutPage() {
               href="tel:+447586094540"
               whileHover={{ scale: 1.03, y: -2 }}
               whileTap={{ scale: 0.98 }}
-              className="inline-flex items-center gap-2 bg-white/5 border border-white/15 text-white font-medium px-8 py-4 rounded-2xl hover:bg-white/10 transition-all text-sm backdrop-blur-sm w-full sm:w-auto justify-center"
+              className="inline-flex items-center gap-2 bg-white border border-warm-200 text-warm-700 hover:border-peach-300 hover:bg-peach-50 shadow-sm font-medium px-8 py-4 rounded-2xl transition-all text-sm w-full sm:w-auto justify-center"
             >
               <Phone className="w-4 h-4" /> +44 7586 094540
             </motion.a>
@@ -853,13 +930,13 @@ export default function AboutPage() {
       </section>
 
       {/* ═══ FOOTER ═══ */}
-      <footer className="bg-warm-900 py-8 border-t border-white/5">
+      <footer className="bg-warm-50 border-t border-warm-200 py-8">
         <div className="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2.5">
             <div className="w-8 h-8 bg-gradient-to-br from-peach-400 to-peach-600 rounded-lg flex items-center justify-center">
               <Code2 className="w-4 h-4 text-white" />
             </div>
-            <span className="font-bold text-white">CODES <span className="text-peach-400">AI</span></span>
+            <span className="font-bold text-warm-800">CODES <span className="text-peach-500">AI</span></span>
           </div>
           <p className="text-xs text-warm-500">&copy; 2026 CODES AI LIMITED (Company No. 16078672). All rights reserved.</p>
         </div>

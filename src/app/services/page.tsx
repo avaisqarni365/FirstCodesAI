@@ -7,8 +7,19 @@ import { ArrowRight, ArrowUpRight, Code2, Sparkles, Menu, X } from "lucide-react
 import { servicesData } from "@/lib/services-data";
 import { useState } from "react";
 
+const REMOTE_SLUGS = [
+  "remote-sales-crm-ops",
+  "global-lead-generation",
+  "remote-communications-desk",
+  "remote-finance-invoicing-ops",
+  "remote-team-enablement",
+];
+
 export default function ServicesPage() {
   const [mobileMenu, setMobileMenu] = useState(false);
+
+  const remoteServices = servicesData.filter((s) => REMOTE_SLUGS.includes(s.slug));
+  const engineeringServices = servicesData.filter((s) => !REMOTE_SLUGS.includes(s.slug));
 
   return (
     <div className="min-h-screen bg-white">
@@ -19,7 +30,7 @@ export default function ServicesPage() {
             <Image src="/logo.svg" alt="CODES AI" width={160} height={40} priority className="h-9 w-auto" />
           </Link>
           <div className="hidden lg:flex items-center gap-8">
-            {[["Home", "/"], ["Services", "/services"], ["About CEO", "/about"]].map(([l, h]) => (
+            {[["Home", "/"], ["Studio", "/studio"], ["Services", "/services"], ["About CEO", "/about"]].map(([l, h]) => (
               <Link key={l} href={h} className={`text-sm font-medium transition-colors ${h === "/services" ? "text-peach-600" : "text-warm-500 hover:text-peach-600"}`}>{l}</Link>
             ))}
           </div>
@@ -30,35 +41,40 @@ export default function ServicesPage() {
       </nav>
 
       {/* Hero */}
-      <section className="pt-28 pb-16 bg-gradient-to-b from-[#FEF9F4] to-white relative overflow-hidden">
+      <section className="pt-28 pb-16 bg-gradient-to-b from-warm-50 to-white relative overflow-hidden">
         <div className="absolute -top-40 -right-40 w-[500px] h-[500px] rounded-full bg-peach-200/30 blur-3xl" />
         <div className="max-w-7xl mx-auto px-6 relative z-10 text-center">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
             <span className="inline-flex items-center gap-2 bg-peach-50 border border-peach-200 rounded-full px-4 py-1.5 mb-6">
               <Sparkles className="w-3.5 h-3.5 text-peach-500" />
-              <span className="text-xs font-semibold text-peach-700">// ALL SERVICES</span>
+              <span className="text-xs font-semibold text-peach-700">// REMOTE OPS + ENGINEERING</span>
             </span>
             <h1 className="text-4xl sm:text-6xl font-bold text-warm-800 tracking-tight">
-              Everything we <span className="text-peach-500">build</span>
+              Everything we <span className="text-peach-500">run for you</span>
             </h1>
             <p className="mt-4 text-lg text-warm-500 max-w-2xl mx-auto">
-              9 core services covering the full spectrum of modern software engineering — from AI and data to cloud and security.
+              Remote operations that run your back-office and growth — backed by the engineering capability that builds and runs the software.
             </p>
           </motion.div>
         </div>
       </section>
 
-      {/* Services Grid */}
+      {/* Remote Operations Grid */}
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-6">
+          <div className="mb-8">
+            <span className="text-xs font-semibold text-peach-700">// REMOTE OPERATIONS</span>
+            <h2 className="text-2xl sm:text-3xl font-bold text-warm-800 tracking-tight mt-1">What we run for you</h2>
+            <p className="mt-2 text-warm-500 max-w-2xl">Your remote back-office and growth function — operated end-to-end on software we've already built.</p>
+          </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {servicesData.map((service, i) => (
+            {remoteServices.map((service, i) => (
               <motion.div key={service.slug} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.05 }}>
                 <Link href={`/services/${service.slug}`}
-                  className="group block p-7 rounded-2xl bg-[#FEFAF6] border border-warm-100 hover:border-peach-200 hover:shadow-2xl hover:shadow-peach-100/40 transition-all duration-500 hover:-translate-y-2 h-full"
+                  className="group block p-7 rounded-2xl bg-warm-50 border border-warm-100 hover:border-peach-200 hover:shadow-2xl hover:shadow-peach-100/40 transition-all duration-500 hover:-translate-y-2 h-full"
                 >
                   {i === 0 && (
-                    <span className="inline-block mb-3 bg-gradient-to-r from-peach-500 to-amber-500 text-white text-[9px] font-bold px-2.5 py-0.5 rounded-full">MOST POPULAR</span>
+                    <span className="inline-block mb-3 bg-gradient-to-r from-peach-500 to-amber-500 text-white text-[9px] font-bold px-2.5 py-0.5 rounded-full">FLAGSHIP</span>
                   )}
                   <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${service.gradient} flex items-center justify-center mb-5 shadow-lg group-hover:scale-110 transition-transform`}>
                     <service.icon className="w-7 h-7 text-white" />
@@ -75,11 +91,40 @@ export default function ServicesPage() {
         </div>
       </section>
 
+      {/* Engineering Grid (supporting layer) */}
+      <section className="py-16 bg-warm-50 border-t border-warm-100">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="mb-8">
+            <span className="text-xs font-semibold text-warm-500">// ENGINEERING</span>
+            <h2 className="text-2xl sm:text-3xl font-bold text-warm-800 tracking-tight mt-1">How we build it</h2>
+            <p className="mt-2 text-warm-500 max-w-2xl">The in-house software and delivery capability that builds and powers our remote operations.</p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {engineeringServices.map((service, i) => (
+              <motion.div key={service.slug} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.05 }}>
+                <Link href={`/services/${service.slug}`}
+                  className="group block p-7 rounded-2xl bg-white border border-warm-100 hover:border-peach-200 hover:shadow-2xl hover:shadow-peach-100/40 transition-all duration-500 hover:-translate-y-2 h-full"
+                >
+                  <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${service.gradient} flex items-center justify-center mb-5 shadow-lg group-hover:scale-110 transition-transform`}>
+                    <service.icon className="w-7 h-7 text-white" />
+                  </div>
+                  <h3 className="text-lg font-bold text-warm-800 mb-2">{service.title}</h3>
+                  <p className="text-sm text-warm-500 leading-relaxed mb-4">{service.description}</p>
+                  <span className="text-peach-500 text-sm font-semibold flex items-center gap-1 group-hover:gap-2 transition-all">
+                    View details <ArrowUpRight className="w-4 h-4" />
+                  </span>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* CTA */}
-      <section className="py-20 bg-gradient-to-br from-warm-800 to-warm-900">
+      <section className="py-20 bg-warm-50">
         <div className="max-w-3xl mx-auto px-6 text-center">
-          <h2 className="text-3xl font-bold text-white mb-4">Not sure which service you need?</h2>
-          <p className="text-warm-400 mb-8">Book a free consultation — we&apos;ll help you figure out the best approach for your project.</p>
+          <h2 className="text-3xl font-bold text-warm-800 mb-4">Not sure which service you need?</h2>
+          <p className="text-warm-500 mb-8">Book a free consultation — we&apos;ll help you figure out the best approach for your project.</p>
           <a href="mailto:info@codes-ai.uk" className="inline-flex items-center gap-2 bg-gradient-to-r from-peach-500 to-peach-400 text-white font-semibold px-8 py-4 rounded-2xl shadow-xl hover:-translate-y-1 transition-all text-sm">
             Book Free Consultation <ArrowRight className="w-4 h-4" />
           </a>
@@ -87,11 +132,11 @@ export default function ServicesPage() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-warm-900 py-8">
+      <footer className="bg-warm-50 border-t border-warm-200 py-8">
         <div className="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2.5">
             <div className="w-8 h-8 bg-gradient-to-br from-peach-400 to-peach-600 rounded-lg flex items-center justify-center"><Code2 className="w-4 h-4 text-white" /></div>
-            <span className="font-bold text-white">CODES <span className="text-peach-400">AI</span></span>
+            <span className="font-bold text-warm-800">CODES <span className="text-peach-500">AI</span></span>
           </div>
           <p className="text-[10px] text-warm-600">&copy; 2026 CODES AI LIMITED (16078672). All rights reserved.</p>
         </div>

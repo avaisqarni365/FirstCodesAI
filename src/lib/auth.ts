@@ -17,10 +17,11 @@ export const authOptions: NextAuthOptions = {
       credentials: {
         email: { label: "Email", type: "email" },
         password: { label: "Password", type: "password" },
+        remember: { label: "Remember", type: "text" },
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
-          throw new Error("Missing credentials");
+          return null;
         }
 
         // Normalize email to lowercase to prevent case-sensitive bypasses
@@ -31,12 +32,12 @@ export const authOptions: NextAuthOptions = {
         });
 
         if (!user || !user.isActive) {
-          throw new Error("Invalid credentials");
+          return null;
         }
 
         const isValid = await bcrypt.compare(credentials.password, user.password);
         if (!isValid) {
-          throw new Error("Invalid credentials");
+          return null;
         }
 
         return {
@@ -45,6 +46,7 @@ export const authOptions: NextAuthOptions = {
           email: user.email,
           role: user.role,
           avatar: user.avatar ?? undefined,
+          remember: credentials.remember === "true",
         };
       },
     }),
@@ -55,6 +57,9 @@ export const authOptions: NextAuthOptions = {
         token.id = user.id;
         token.role = (user as { role: string }).role;
         token.avatar = (user as { avatar?: string }).avatar;
+        const remember = (user as { remember?: boolean }).remember;
+        const maxAge = remember ? 30 * 24 * 60 * 60 : 24 * 60 * 60;
+        token.exp = Math.floor(Date.now() / 1000) + maxAge;
       }
       return token;
     },
@@ -69,6 +74,7 @@ export const authOptions: NextAuthOptions = {
   },
   pages: {
     signIn: "/login",
+    error: "/login",
   },
   session: {
     strategy: "jwt",
