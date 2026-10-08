@@ -96,15 +96,18 @@ Step "Packaging release -> $TarLocal"
 if (Test-Path $TarLocal) { Remove-Item $TarLocal -Force }
 Push-Location $ProjectRoot
 try {
-    # Bundle only what the server needs to run `next start` + prisma
-    # NB: node_modules is intentionally excluded -- installed fresh on server
-    # --force-local: Git's tar otherwise reads the Windows path's "C:" as a remote host spec
-    tar --force-local -czf $TarLocal `
+    # Bundle only what the server needs to run `next start` + prisma.
+    # node_modules is installed fresh on the server.
+    # Write a relative archive name: a "C:" path makes some tar builds
+    # treat the drive letter as a remote host.
+    if (Test-Path $TarName) { Remove-Item $TarName -Force }
+    tar -czf $TarName `
         --exclude='node_modules' `
         --exclude='.git' `
         --exclude='.next/cache' `
         .next public prisma package.json package-lock.json next.config.ts prisma.config.ts
     if ($LASTEXITCODE -ne 0) { FAIL "tar failed"; exit $LASTEXITCODE }
+    Move-Item -Force $TarName $TarLocal
     OK ("{0:N1} MB" -f ((Get-Item $TarLocal).Length / 1MB))
 } finally { Pop-Location }
 
