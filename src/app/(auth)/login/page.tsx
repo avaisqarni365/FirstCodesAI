@@ -98,7 +98,7 @@ function LoginForm() {
   return (
     <div className="min-h-screen flex">
       {/* Brand panel */}
-      <div className="hidden lg:flex lg:w-[45%] xl:w-[42%] relative overflow-hidden bg-gradient-to-br from-peach-50 via-white to-grape-100/50">
+      <div className="hidden lg:flex lg:w-[45%] xl:w-[42%] relative overflow-hidden bg-canvas">
         <div
           className="absolute inset-0 opacity-40"
           style={{
@@ -133,7 +133,7 @@ function LoginForm() {
               <h1 className="text-3xl xl:text-4xl font-bold text-warm-800 leading-tight">
                 Your business,
                 <br />
-                <span className="text-peach-600">one platform.</span>
+                <span className="text-teal-600">one platform.</span>
               </h1>
               <p className="mt-4 text-warm-600 text-sm leading-relaxed max-w-sm">
                 CRM, lead generation, communications, and accounting — unified for modern teams.
@@ -150,7 +150,7 @@ function LoginForm() {
                   className="flex items-center gap-3 text-sm text-warm-600"
                 >
                   <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-white border border-warm-200 shadow-sm">
-                    <Icon className="w-4 h-4 text-peach-500" />
+                    <Icon className="w-4 h-4 text-brass" />
                   </span>
                   {label}
                 </motion.li>
@@ -163,7 +163,7 @@ function LoginForm() {
       </div>
 
       {/* Form panel */}
-      <div className="flex-1 flex items-center justify-center bg-gradient-to-br from-warm-50 via-white to-peach-50 p-6 sm:p-10">
+      <div className="flex-1 flex items-center justify-center bg-canvas p-6 sm:p-10">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
@@ -172,7 +172,7 @@ function LoginForm() {
         >
           {/* Mobile logo */}
           <div className="lg:hidden flex items-center justify-center gap-3 mb-8">
-            <div className="w-12 h-12 bg-gradient-to-br from-peach-400 to-peach-500 rounded-2xl flex items-center justify-center shadow-lg shadow-peach-200">
+            <div className="w-12 h-12 bg-teal-500 rounded-xl flex items-center justify-center">
               <Code2 className="w-6 h-6 text-white" />
             </div>
             <Wordmark />
@@ -251,7 +251,7 @@ function LoginForm() {
                   id="remember"
                   checked={hydrated ? rememberMe : false}
                   onCheckedChange={(checked) => setRememberMe(checked === true)}
-                  className="border-warm-300 data-checked:bg-peach-500 data-checked:border-peach-500"
+                  className="border-line data-checked:bg-teal-500 data-checked:border-teal-500"
                 />
                 <Label
                   htmlFor="remember"
@@ -264,7 +264,7 @@ function LoginForm() {
               <Button
                 type="submit"
                 disabled={loading}
-                className="w-full h-11 bg-gradient-to-r from-peach-500 to-peach-400 hover:from-peach-600 hover:to-peach-500 text-white font-semibold shadow-md shadow-peach-200/80 transition-all rounded-xl"
+                className="w-full h-11 bg-teal-500 hover:bg-teal-600 text-white font-semibold transition-all rounded-[12px]"
               >
                 {loading ? (
                   <>

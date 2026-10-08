@@ -5,17 +5,16 @@ import { useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowRight, ArrowUpRight, Check, Coins, Clock, Layers, Rocket, Terminal,
-  Sparkles, Cpu, Menu, X, Zap, CircleDollarSign,
+  Sparkles, Cpu, Zap, CircleDollarSign,
 } from "lucide-react";
-import { MacWindow, Starburst, Counter, TypeWriter } from "@/components/vibe";
+import { MacWindow, Counter, TypeWriter } from "@/components/vibe";
+import { SiteFrame } from "@/components/marketing/SiteFrame";
 import {
   FEATURES, COMPLEXITY, computeEstimate, buildSprintPlan, DISCIPLINE_COLOR,
 } from "@/lib/studio-catalog";
 
 const STEP = (n: string) => (
-  <span className="inline-flex items-center gap-2 text-[11px] font-semibold text-peach-600 uppercase tracking-[0.2em]">
-    <Starburst size={12} className="text-peach-500" /> {n}
-  </span>
+  <span className="font-mono text-[11px] font-semibold text-brass uppercase tracking-[0.16em]">{n}</span>
 );
 
 const DEFAULT_REQUIREMENTS = "# My product\n\nA marketplace where creators sell digital goods.\n- users sign in and list products\n- buyers pay by card\n- an AI assistant recommends items\n- admin can moderate listings";
@@ -23,7 +22,6 @@ const DEFAULT_REQUIREMENTS = "# My product\n\nA marketplace where creators sell 
 export default function StudioPage() {
   const [selected, setSelected] = useState<string[]>(["auth", "dashboard", "ai-chat"]);
   const [complexityId, setComplexityId] = useState("standard");
-  const [menuOpen, setMenuOpen] = useState(false);
   const [requirements, setRequirements] = useState(DEFAULT_REQUIREMENTS);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -59,54 +57,21 @@ export default function StudioPage() {
   }
 
   return (
-    <div className="grain min-h-screen bg-warm-50 text-warm-800 font-mono overflow-x-hidden">
-      {/* ─── NAV ─── */}
-      <nav className="fixed top-0 inset-x-0 z-50 bg-warm-50/85 backdrop-blur-lg border-b border-warm-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2">
-            <Starburst size={22} className="text-peach-500" />
-            <span className="font-bold text-warm-800 tracking-tight">SparkVibe<span className="text-peach-500">Studio</span></span>
-          </Link>
-          <div className="hidden md:flex items-center gap-6 text-sm">
-            {[["Home", "/"], ["Services", "/services"], ["Case Studies", "/case-studies"], ["About", "/about"]].map(([l, h]) => (
-              <Link key={l} href={h} className="text-warm-600 hover:text-peach-600 transition-colors">{l}</Link>
-            ))}
-            <a href="#build" className="inline-flex items-center gap-1.5 text-sm font-semibold text-white bg-peach-500 hover:bg-peach-600 px-4 py-2 rounded-lg transition-colors">
-              Start building <ArrowRight className="w-3.5 h-3.5" />
-            </a>
-          </div>
-          <button onClick={() => setMenuOpen(!menuOpen)} className="md:hidden p-2 -mr-2 text-warm-700" aria-label="Menu">
-            {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
-        </div>
-        <AnimatePresence>
-          {menuOpen && (
-            <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} className="md:hidden bg-warm-50 border-t border-warm-200 overflow-hidden">
-              <div className="px-4 py-4 space-y-1">
-                {[["Home", "/"], ["Services", "/services"], ["Case Studies", "/case-studies"], ["About", "/about"]].map(([l, h]) => (
-                  <Link key={l} href={h} onClick={() => setMenuOpen(false)} className="block px-3 py-3 text-base text-warm-700 hover:bg-peach-50 rounded-lg">{l}</Link>
-                ))}
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </nav>
-
-      {/* ─── HERO ─── */}
-      <section className="relative pt-24 sm:pt-32 pb-12 sm:pb-16 overflow-hidden">
+    <SiteFrame>
+      <section className="relative py-14 sm:py-20 overflow-hidden">
         <div className="absolute -top-1/3 left-1/2 -translate-x-1/2 w-[130%] aspect-square aurora-bg pointer-events-none opacity-[0.16]" aria-hidden />
-        <div className="absolute -top-20 -right-20 w-96 h-96 rounded-full bg-peach-200/40 blur-[100px]" />
+        <div className="absolute -top-20 -right-20 w-96 h-96 rounded-full bg-teal-100/40 blur-[100px]" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
             <div>
               <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="inline-flex items-center gap-2 bg-white border border-warm-200 rounded-full px-3 py-1.5 mb-6 shadow-sm">
                 <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
-                <span className="text-[11px] font-semibold text-peach-600">// VIBE CODING STUDIO · REMOTE · WORLDWIDE</span>
+                <span className="text-[11px] font-semibold text-teal-700">// VIBE CODING STUDIO · REMOTE · WORLDWIDE</span>
               </motion.div>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-warm-800 leading-[1.08] tracking-tight">
                 Have an idea?
                 <br />
-                <span className="text-peach-500">Ship a product.</span>
+                <span className="text-brass">Ship a product.</span>
                 <br />
                 <span className="text-warm-400 text-2xl sm:text-3xl lg:text-4xl">
                   <TypeWriter words={["describe it.", "price it.", "we build it.", "you own it."]} />
@@ -114,13 +79,13 @@ export default function StudioPage() {
               </h1>
               <p className="mt-5 text-sm sm:text-base text-warm-600 leading-relaxed max-w-lg">
                 Write your requirements, pick the features you want, and get a live token &amp; cost
-                estimate. Our remote vibe-coding team + domain experts build it <span className="text-peach-600 font-semibold">sprint by sprint</span> — and hand you a ready project.
+                estimate. Our remote vibe-coding team + domain experts build it <span className="text-teal-700 font-semibold">sprint by sprint</span> — and hand you a ready project.
               </p>
               <div className="mt-8 flex flex-col sm:flex-row gap-3">
-                <a href="#build" className="group inline-flex items-center justify-center gap-2 bg-peach-500 hover:bg-peach-600 text-white font-semibold px-6 py-3.5 rounded-xl shadow-lg shadow-peach-500/25 transition-all hover:-translate-y-0.5">
+                <a href="#build" className="group inline-flex items-center justify-center gap-2 bg-teal-500 hover:bg-teal-600 text-white font-semibold px-6 py-3.5 rounded-xl  transition-all hover:-translate-y-0.5">
                   Build your app <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </a>
-                <a href="#how" className="inline-flex items-center justify-center gap-2 bg-white border border-warm-200 text-warm-700 font-medium px-6 py-3.5 rounded-xl hover:border-peach-300 hover:bg-peach-50 transition-all shadow-sm">
+                <a href="#how" className="inline-flex items-center justify-center gap-2 bg-white border border-warm-200 text-warm-700 font-medium px-6 py-3.5 rounded-xl hover:border-teal-200 hover:bg-teal-50 transition-all shadow-sm">
                   How it works
                 </a>
               </div>
@@ -130,13 +95,13 @@ export default function StudioPage() {
             <MacWindow title="sparkvibe ~ build" bodyClassName="p-4 bg-[#1c1a19]" dark className="mac-window--dark">
               <div className="font-mono text-xs space-y-2 leading-relaxed">
                 {[
-                  { d: 0.5, c: <><span className="text-peach-400">$</span> <span className="text-emerald-400">sparkvibe</span> <span className="text-warm-300">new</span> <span className="text-gold-500">&quot;marketplace app&quot;</span></> },
+                  { d: 0.5, c: <><span className="text-brass">$</span> <span className="text-emerald-400">sparkvibe</span> <span className="text-warm-300">new</span> <span className="text-gold-500">&quot;marketplace app&quot;</span></> },
                   { d: 0.9, c: <span className="text-warm-500">// reading requirements…</span> },
-                  { d: 1.3, c: <><span className="text-peach-400">✦</span> <span className="text-warm-200">Features</span> <span className="text-warm-500">→ auth · payments · dashboard · AI</span></> },
-                  { d: 1.7, c: <><span className="text-peach-400">✦</span> <span className="text-warm-200">Estimate</span> <span className="text-warm-500">→ 860k tokens · £9,300 · 4 sprints</span></> },
-                  { d: 2.1, c: <><span className="text-peach-400">✦</span> <span className="text-warm-200">Team</span> <span className="text-warm-500">→ FE · BE · AI · QA assigned</span></> },
+                  { d: 1.3, c: <><span className="text-brass">✦</span> <span className="text-warm-200">Features</span> <span className="text-warm-500">→ auth · payments · dashboard · AI</span></> },
+                  { d: 1.7, c: <><span className="text-brass">✦</span> <span className="text-warm-200">Estimate</span> <span className="text-warm-500">→ 860k tokens · £9,300 · 4 sprints</span></> },
+                  { d: 2.1, c: <><span className="text-brass">✦</span> <span className="text-warm-200">Team</span> <span className="text-warm-500">→ FE · BE · AI · QA assigned</span></> },
                   { d: 2.5, c: <><span className="text-emerald-400">✓ Sprint 1</span> <span className="text-warm-500">foundations shipped</span></> },
-                  { d: 2.9, c: <div className="pt-1.5 border-t border-white/10 mt-1"><span className="text-peach-400 font-bold">ready project</span> <span className="text-warm-500">delivered · you own the code</span></div> },
+                  { d: 2.9, c: <div className="pt-1.5 border-t border-white/10 mt-1"><span className="text-brass font-bold">ready project</span> <span className="text-warm-500">delivered · you own the code</span></div> },
                 ].map((l, i) => (
                   <motion.div key={i} initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: l.d }}>{l.c}</motion.div>
                 ))}
@@ -187,15 +152,15 @@ export default function StudioPage() {
                         onClick={() => toggle(f.id)}
                         className={`group text-left rounded-xl border p-4 transition-all duration-200 ${
                           on
-                            ? "border-peach-400 bg-peach-50 shadow-md shadow-peach-100/60 -translate-y-0.5"
-                            : "border-warm-200 bg-white hover:border-peach-300 hover:-translate-y-0.5"
+                            ? "border-teal-500 bg-teal-50  -translate-y-0.5"
+                            : "border-warm-200 bg-white hover:border-teal-200 hover:-translate-y-0.5"
                         }`}
                       >
                         <div className="flex items-start justify-between gap-2">
-                          <div className={`w-9 h-9 rounded-lg flex items-center justify-center transition-colors ${on ? "bg-peach-500 text-white" : "bg-warm-100 text-warm-600 group-hover:bg-peach-100"}`}>
+                          <div className={`w-9 h-9 rounded-lg flex items-center justify-center transition-colors ${on ? "bg-teal-500 text-white" : "bg-warm-100 text-warm-600 group-hover:bg-teal-100"}`}>
                             <f.icon className="w-4.5 h-4.5" style={{ width: 18, height: 18 }} />
                           </div>
-                          <span className={`w-5 h-5 rounded-md border flex items-center justify-center shrink-0 transition-all ${on ? "bg-peach-500 border-peach-500" : "border-warm-300"}`}>
+                          <span className={`w-5 h-5 rounded-md border flex items-center justify-center shrink-0 transition-all ${on ? "bg-teal-500 border-teal-500" : "border-warm-300"}`}>
                             <AnimatePresence>
                               {on && <motion.span initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }}><Check className="w-3.5 h-3.5 text-white" /></motion.span>}
                             </AnimatePresence>
@@ -204,7 +169,7 @@ export default function StudioPage() {
                         <h4 className="mt-3 text-sm font-bold text-warm-800">{f.name}</h4>
                         <p className="text-[11px] text-warm-500 leading-snug mt-0.5">{f.blurb}</p>
                         <div className="mt-3 flex items-center gap-3 text-[10px] font-semibold">
-                          <span className="text-peach-600 flex items-center gap-1"><Coins className="w-3 h-3" />{f.tokens}k</span>
+                          <span className="text-teal-700 flex items-center gap-1"><Coins className="w-3 h-3" />{f.tokens}k</span>
                           <span className="text-warm-600 flex items-center gap-1"><CircleDollarSign className="w-3 h-3" />£{f.price.toLocaleString()}</span>
                           <span className="text-warm-500 flex items-center gap-1"><Clock className="w-3 h-3" />{f.sprints} spr</span>
                         </div>
@@ -228,7 +193,7 @@ export default function StudioPage() {
                         key={c.id}
                         onClick={() => setComplexityId(c.id)}
                         className={`rounded-lg border px-2 py-2 text-[11px] font-semibold transition-all ${
-                          complexityId === c.id ? "border-peach-400 bg-peach-500 text-white" : "border-warm-200 bg-white text-warm-600 hover:border-peach-300"
+                          complexityId === c.id ? "border-teal-500 bg-teal-500 text-white" : "border-warm-200 bg-white text-warm-600 hover:border-teal-200"
                         }`}
                       >
                         {c.label}
@@ -258,11 +223,11 @@ export default function StudioPage() {
                   ) : (
                     <div className="mt-4 space-y-2">
                       <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Your name"
-                        className="w-full rounded-lg border border-warm-200 bg-white px-3 py-2 text-xs text-warm-800 outline-none focus:border-peach-400 placeholder:text-warm-400" />
+                        className="w-full rounded-lg border border-warm-200 bg-white px-3 py-2 text-xs text-warm-800 outline-none focus:border-teal-500 placeholder:text-warm-400" />
                       <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="Email (so we can reply)"
-                        className="w-full rounded-lg border border-warm-200 bg-white px-3 py-2 text-xs text-warm-800 outline-none focus:border-peach-400 placeholder:text-warm-400" />
+                        className="w-full rounded-lg border border-warm-200 bg-white px-3 py-2 text-xs text-warm-800 outline-none focus:border-teal-500 placeholder:text-warm-400" />
                       <button onClick={submitBuild} disabled={submitState === "sending"}
-                        className="w-full inline-flex items-center justify-center gap-2 bg-peach-500 hover:bg-peach-600 disabled:opacity-60 text-white font-semibold px-4 py-3 rounded-xl text-sm transition-colors">
+                        className="w-full inline-flex items-center justify-center gap-2 bg-teal-500 hover:bg-teal-600 disabled:opacity-60 text-white font-semibold px-4 py-3 rounded-xl text-sm transition-colors">
                         {submitState === "sending" ? "Sending…" : <>Start this build <ArrowUpRight className="w-4 h-4" /></>}
                       </button>
                       {submitState === "error" && <p className="text-[10px] text-red-500 text-center">Something went wrong — please try again or email info@codes-ai.uk.</p>}
@@ -288,7 +253,7 @@ export default function StudioPage() {
             <div className="text-center text-warm-500 text-sm">Pick some features above to generate a sprint plan.</div>
           ) : (
             <div className="relative">
-              <div className="absolute left-[19px] top-2 bottom-2 w-0.5 bg-gradient-to-b from-peach-300 via-warm-200 to-warm-200 hidden sm:block" />
+              <div className="absolute left-[19px] top-2 bottom-2 w-0.5 bg-gradient-to-b from-brass via-warm-200 to-warm-200 hidden sm:block" />
               <div className="space-y-4">
                 {sprints.map((s, i) => (
                   <motion.div
@@ -299,13 +264,13 @@ export default function StudioPage() {
                     transition={{ delay: i * 0.08, duration: 0.4 }}
                     className="relative sm:pl-14"
                   >
-                    <div className="hidden sm:flex absolute left-0 top-1 w-10 h-10 rounded-xl bg-peach-500 text-white items-center justify-center font-bold text-sm shadow-md shadow-peach-200">
+                    <div className="hidden sm:flex absolute left-0 top-1 w-10 h-10 rounded-xl bg-teal-500 text-white items-center justify-center font-bold text-sm ">
                       {s.n}
                     </div>
-                    <div className="bg-white rounded-xl border border-warm-200 p-4 sm:p-5 hover:shadow-lg hover:border-peach-200 transition-all">
+                    <div className="bg-white rounded-xl border border-warm-200 p-4 sm:p-5 hover:shadow-lg hover:border-line transition-all">
                       <div className="flex items-center justify-between mb-3">
                         <h3 className="text-sm font-bold text-warm-800">
-                          <span className="sm:hidden text-peach-500">Sprint {s.n} · </span>{s.title}
+                          <span className="sm:hidden text-brass">Sprint {s.n} · </span>{s.title}
                         </h3>
                         <span className="text-[10px] text-warm-500">Week {s.n * 2 - 1}–{s.n * 2}</span>
                       </div>
@@ -316,7 +281,7 @@ export default function StudioPage() {
                               <span className={`px-1.5 py-0.5 rounded text-[9px] font-bold ${DISCIPLINE_COLOR[t.discipline]}`}>{t.discipline}</span>
                               {t.feature}
                             </span>
-                            <span className="text-peach-600 font-semibold flex items-center gap-1 shrink-0"><Coins className="w-3 h-3" />{t.tokens}k</span>
+                            <span className="text-teal-700 font-semibold flex items-center gap-1 shrink-0"><Coins className="w-3 h-3" />{t.tokens}k</span>
                           </div>
                         ))}
                       </div>
@@ -329,7 +294,7 @@ export default function StudioPage() {
                   <div className="hidden sm:flex absolute left-0 top-1 w-10 h-10 rounded-xl bg-emerald-500 text-white items-center justify-center shadow-md">
                     <Rocket className="w-5 h-5" />
                   </div>
-                  <div className="bg-gradient-to-br from-peach-50 to-white rounded-xl border border-peach-200 p-5">
+                  <div className="bg-gradient-to-br from-brass-50 to-white rounded-xl border border-line p-5">
                     <h3 className="text-sm font-bold text-warm-800 flex items-center gap-2"><Check className="w-4 h-4 text-emerald-500" /> Ready project delivered</h3>
                     <p className="text-xs text-warm-600 mt-1">You own 100% of the source code, deployed and documented. Iterate anytime — same team, same studio.</p>
                   </div>
@@ -353,8 +318,8 @@ export default function StudioPage() {
               { icon: Sparkles, title: "Domain experts", desc: "Every sprint is owned by a specialist — frontend, backend, AI, mobile, QA — so quality holds as speed rises." },
               { icon: Zap, title: "Fully remote, worldwide", desc: "Timezone-agnostic delivery. Your product ships continuously, wherever you and your market are." },
             ].map((c, i) => (
-              <motion.div key={c.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }} className="bg-white rounded-xl border border-warm-200 p-6 hover:shadow-lg hover:border-peach-200 transition-all">
-                <div className="w-11 h-11 rounded-xl bg-peach-100 text-peach-600 flex items-center justify-center mb-4"><c.icon className="w-5 h-5" /></div>
+              <motion.div key={c.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }} className="bg-white rounded-xl border border-warm-200 p-6 hover:shadow-lg hover:border-line transition-all">
+                <div className="w-11 h-11 rounded-xl bg-teal-100 text-teal-700 flex items-center justify-center mb-4"><c.icon className="w-5 h-5" /></div>
                 <h3 className="text-base font-bold text-warm-800 mb-1.5">{c.title}</h3>
                 <p className="text-sm text-warm-600 leading-relaxed">{c.desc}</p>
               </motion.div>
@@ -366,14 +331,14 @@ export default function StudioPage() {
       {/* ─── CTA ─── */}
       <section className="py-16 sm:py-24 border-t border-warm-200">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
-          <Starburst size={44} className="text-peach-500 mx-auto mb-6 animate-starburst" />
-          <h2 className="text-3xl sm:text-4xl font-bold text-warm-800 tracking-tight">Bring the idea. We&apos;ll bring the build.</h2>
+          <p className="font-mono text-[11px] font-semibold tracking-[0.16em] uppercase text-brass">Studio</p>
+          <h2 className="mt-3 text-3xl sm:text-4xl font-semibold text-ink tracking-tight">Bring the idea. We&apos;ll bring the build.</h2>
           <p className="mt-3 text-warm-600 text-sm max-w-lg mx-auto">Send your requirements and we&apos;ll return a costed, sprint-by-sprint plan within 24 hours.</p>
           <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
-            <a href="mailto:info@codes-ai.uk?subject=SparkVibe%20build%20request" className="inline-flex items-center justify-center gap-2 bg-peach-500 hover:bg-peach-600 text-white font-semibold px-7 py-3.5 rounded-xl shadow-lg shadow-peach-500/25 transition-all hover:-translate-y-0.5 text-sm">
+            <a href="mailto:info@codes-ai.uk?subject=SparkVibe%20build%20request" className="inline-flex items-center justify-center gap-2 bg-teal-500 hover:bg-teal-600 text-white font-semibold px-7 py-3.5 rounded-xl  transition-all hover:-translate-y-0.5 text-sm">
               <Terminal className="w-4 h-4" /> Start your build
             </a>
-            <a href="https://vibe.codes-ai.uk" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 bg-white border border-warm-200 text-warm-700 font-medium px-7 py-3.5 rounded-xl hover:border-peach-300 hover:bg-peach-50 transition-all shadow-sm text-sm">
+            <a href="https://vibe.codes-ai.uk" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 bg-white border border-warm-200 text-warm-700 font-medium px-7 py-3.5 rounded-xl hover:border-teal-200 hover:bg-teal-50 transition-all shadow-sm text-sm">
               Open SparkVibe <ArrowUpRight className="w-4 h-4" />
             </a>
           </div>
@@ -381,24 +346,15 @@ export default function StudioPage() {
       </section>
 
       {/* ─── FOOTER ─── */}
-      <footer className="bg-warm-50 border-t border-warm-200 py-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <div className="flex items-center gap-2">
-            <Starburst size={18} className="text-peach-500" />
-            <span className="font-bold text-warm-800 text-sm">SparkVibe<span className="text-peach-500">Studio</span></span>
-          </div>
-          <p className="text-[10px] text-warm-500">&copy; 2026 CODES AI LIMITED (16078672). Vibe coding, worldwide.</p>
-        </div>
-      </footer>
-    </div>
+    </SiteFrame>
   );
 }
 
 function Metric({ icon: Icon, label, value, accent = false }: { icon: typeof Coins; label: string; value: React.ReactNode; accent?: boolean }) {
   return (
-    <div className={`rounded-xl border p-3 ${accent ? "border-peach-200 bg-peach-50" : "border-warm-200 bg-white"}`}>
+    <div className={`rounded-xl border p-3 ${accent ? "border-line bg-teal-50" : "border-warm-200 bg-white"}`}>
       <p className="text-[10px] font-semibold text-warm-500 uppercase tracking-wider flex items-center gap-1.5"><Icon className="w-3 h-3" />{label}</p>
-      <p className={`mt-1 text-2xl font-bold tabular-nums ${accent ? "text-peach-600" : "text-warm-800"}`}>{value}</p>
+      <p className={`mt-1 text-2xl font-bold tabular-nums ${accent ? "text-teal-700" : "text-warm-800"}`}>{value}</p>
     </div>
   );
 }
