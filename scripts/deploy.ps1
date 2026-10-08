@@ -105,6 +105,7 @@ try {
         --exclude='node_modules' `
         --exclude='.git' `
         --exclude='.next/cache' `
+        --exclude='.next/dev' `
         .next public prisma package.json package-lock.json next.config.ts prisma.config.ts
     if ($LASTEXITCODE -ne 0) { FAIL "tar failed"; exit $LASTEXITCODE }
     Move-Item -Force $TarName $TarLocal
