@@ -10,6 +10,7 @@ import {
   CircuitBoard, Rocket,
 } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
+import { Wordmark } from "@/components/marketing/Wordmark";
 
 /* ═══════════════════════════════════════════════════════════════
    ANIMATED COUNTER
@@ -128,7 +129,7 @@ const career = [
 
 const achievements = [
   { icon: Rocket, title: "SparkVibe — AI Studio Shipped", stat: "4", statLabel: "platforms shipped", description: "Vibe-coded a complete AI-native development studio (vibe.codes-ai.uk) end-to-end — Context Vault, DB Logic Explorer, Prompt A/B Lab — live on Web, Windows, macOS & Android." },
-  { icon: Globe, title: "ACCA — Remote Accounting", stat: "100%", statLabel: "remote, worldwide", description: "Built a fully-remote accounting platform (acca.codes-ai.uk) delivering VAT invoicing, expenses and reporting to clients anywhere in the world, in any timezone." },
+  { icon: Globe, title: "ACCA — Kontai", stat: "Claude", statLabel: "on NVIDIA hardware", description: "Kontai at acca.codes-ai.uk reads the document, lets Claude decide the booking, and serves that inference on NVIDIA hardware — with the reason kept on the entry." },
   { icon: Bot, title: "AI Development Framework", stat: "40%", statLabel: "faster development", description: "Pioneered AI-assisted development using local LLMs to automate data warehouse design, ETL pipelines, and cloud infrastructure code." },
   { icon: Database, title: "Delta Lakehouse at Scale", stat: "99.9%", statLabel: "data accuracy", description: "Built Delta Lakehouse for billions of sensor JSON files with ACID compliance and 60% faster runtime." },
   { icon: TrendingUp, title: "SAP-to-Azure Integration", stat: "\u20AC120K", statLabel: "annual savings", description: "SAP-to-Azure integrations for Carl Zeiss, E.ON, VW delivering 50% faster analytics." },
@@ -153,7 +154,7 @@ const products = [
     url: "https://acca.codes-ai.uk",
     domain: "acca.codes-ai.uk",
     tagline: "Fully-remote accounting, anywhere in the world",
-    description: "Built a fully-remote accounting and bookkeeping platform serving clients worldwide — VAT-ready invoicing, expense tracking, and management reporting delivered entirely remotely, across any timezone. A complete back-office finance operation as software.",
+    description: "Kontai, live at acca.codes-ai.uk. Claude reads the document, chooses the tax case and proposes a balanced booking with the reason attached. The inference runs on NVIDIA hardware.",
     gradient: "from-emerald-500 to-teal-600",
   },
   {
@@ -365,13 +366,10 @@ export default function AboutPage() {
       <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-xl border-b border-warm-100/50">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2.5">
-            <div className="w-9 h-9 bg-gradient-to-br from-peach-400 to-peach-600 rounded-xl flex items-center justify-center shadow-lg shadow-peach-200/50">
+            <div className="w-9 h-9 bg-teal-500 rounded-xl flex items-center justify-center shadow-lg shadow-peach-200/50">
               <Code2 className="w-5 h-5 text-white" />
             </div>
-            <div className="flex items-baseline gap-1">
-              <span className="font-bold text-warm-800 text-lg tracking-tight">CODES</span>
-              <span className="font-bold text-peach-500 text-lg tracking-tight">AI</span>
-            </div>
+            <Wordmark />
           </Link>
           <div className="hidden lg:flex items-center gap-8">
             {[["Studio", "/studio"], ["Services", "/#services"], ["Our Work", "/#portfolio"], ["About", "/about"], ["Contact", "/#contact"]].map(([label, href]) => (
@@ -510,7 +508,7 @@ export default function AboutPage() {
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
                     transition={{ delay: 0.6, type: "spring", stiffness: 200 }}
-                    className="w-24 h-24 bg-gradient-to-br from-peach-400 to-peach-600 rounded-2xl flex items-center justify-center mx-auto shadow-2xl shadow-peach-500/30 text-4xl font-bold text-white"
+                    className="w-24 h-24 bg-teal-500 rounded-2xl flex items-center justify-center mx-auto shadow-2xl shadow-peach-500/30 text-4xl font-bold text-white"
                   >
                     AQ
                   </motion.div>
@@ -894,7 +892,7 @@ export default function AboutPage() {
             whileInView={{ scale: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
-            className="w-16 h-16 bg-gradient-to-br from-peach-400 to-peach-600 rounded-2xl flex items-center justify-center mx-auto mb-8 shadow-2xl shadow-peach-500/20"
+            className="w-16 h-16 bg-teal-500 rounded-2xl flex items-center justify-center mx-auto mb-8 shadow-2xl shadow-peach-500/20"
           >
             <Rocket className="w-8 h-8 text-white" />
           </motion.div>
@@ -933,10 +931,10 @@ export default function AboutPage() {
       <footer className="bg-warm-50 border-t border-warm-200 py-8">
         <div className="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 bg-gradient-to-br from-peach-400 to-peach-600 rounded-lg flex items-center justify-center">
+            <div className="w-8 h-8 bg-teal-500 rounded-lg flex items-center justify-center">
               <Code2 className="w-4 h-4 text-white" />
             </div>
-            <span className="font-bold text-warm-800">CODES <span className="text-peach-500">AI</span></span>
+            <Wordmark size="sm" />
           </div>
           <p className="text-xs text-warm-500">&copy; 2026 CODES AI LIMITED (Company No. 16078672). All rights reserved.</p>
         </div>

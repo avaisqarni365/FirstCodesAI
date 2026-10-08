@@ -4,6 +4,7 @@ import { Suspense, useEffect, useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
+import { Wordmark } from "@/components/marketing/Wordmark";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -116,13 +117,10 @@ function LoginForm() {
 
         <div className="relative z-10 flex flex-col justify-between p-12 xl:p-16 w-full">
           <div className="flex items-center gap-3">
-            <div className="w-11 h-11 bg-gradient-to-br from-peach-400 to-peach-600 rounded-xl flex items-center justify-center shadow-lg shadow-peach-900/40">
+            <div className="w-11 h-11 bg-teal-500 rounded-xl flex items-center justify-center shadow-lg shadow-peach-900/40">
               <Code2 className="w-6 h-6 text-white" />
             </div>
-            <div>
-              <p className="text-warm-800 font-bold text-lg leading-tight">CODES AI</p>
-              <p className="text-warm-600 text-xs">Private Limited</p>
-            </div>
+            <Wordmark />
           </div>
 
           <motion.div
@@ -177,10 +175,7 @@ function LoginForm() {
             <div className="w-12 h-12 bg-gradient-to-br from-peach-400 to-peach-500 rounded-2xl flex items-center justify-center shadow-lg shadow-peach-200">
               <Code2 className="w-6 h-6 text-white" />
             </div>
-            <div>
-              <p className="font-bold text-warm-800 text-lg leading-tight">CODES AI</p>
-              <p className="text-warm-400 text-xs">Business Management Platform</p>
-            </div>
+            <Wordmark />
           </div>
 
           <div className="bg-white/80 backdrop-blur-sm border border-warm-200/60 rounded-2xl shadow-xl shadow-peach-100/60 p-8 sm:p-10">

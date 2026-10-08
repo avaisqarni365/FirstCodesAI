@@ -1,10 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowRight, ArrowUpRight, Code2, Sparkles, Menu, X } from "lucide-react";
 import { servicesData } from "@/lib/services-data";
+import { Wordmark } from "@/components/marketing/Wordmark";
 import { useState } from "react";
 
 const REMOTE_SLUGS = [
@@ -27,7 +27,7 @@ export default function ServicesPage() {
       <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-xl border-b border-warm-100/50">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-1">
-            <Image src="/logo.svg" alt="CODES AI" width={160} height={40} priority className="h-9 w-auto" />
+            <Wordmark />
           </Link>
           <div className="hidden lg:flex items-center gap-8">
             {[["Home", "/"], ["Studio", "/studio"], ["Services", "/services"], ["About CEO", "/about"]].map(([l, h]) => (
@@ -135,8 +135,8 @@ export default function ServicesPage() {
       <footer className="bg-warm-50 border-t border-warm-200 py-8">
         <div className="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 bg-gradient-to-br from-peach-400 to-peach-600 rounded-lg flex items-center justify-center"><Code2 className="w-4 h-4 text-white" /></div>
-            <span className="font-bold text-warm-800">CODES <span className="text-peach-500">AI</span></span>
+            <div className="w-8 h-8 bg-teal-500 rounded-lg flex items-center justify-center"><Code2 className="w-4 h-4 text-white" /></div>
+            <Wordmark size="sm" />
           </div>
           <p className="text-[10px] text-warm-600">&copy; 2026 CODES AI LIMITED (16078672). All rights reserved.</p>
         </div>

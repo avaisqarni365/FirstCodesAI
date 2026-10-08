@@ -1,8 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 50" fill="none">
   <defs>
     <linearGradient id="gw1" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#E8956A"/>
-      <stop offset="100%" stop-color="#C25D35"/>
+      <stop offset="0%" stop-color="#C4A574"/>
+      <stop offset="100%" stop-color="#8A7049"/>
     </linearGradient>
   </defs>
   <rect x="2" y="5" width="40" height="40" rx="12" fill="url(#gw1)"/>
@@ -21,7 +21,7 @@
   <circle cx="27" cy="21" r="1" fill="white" opacity="0.5"/>
   <circle cx="17" cy="29" r="1" fill="white" opacity="0.5"/>
   <circle cx="27" cy="29" r="1" fill="white" opacity="0.5"/>
-  <text x="50" y="32" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="24" font-weight="800" fill="#FFFFFF" letter-spacing="-0.5">CODES</text>
-  <text x="134" y="32" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="24" font-weight="800" fill="#FFC49E" letter-spacing="-0.5">AI</text>
-  <circle cx="156" cy="30" r="2" fill="#FFC49E" opacity="0.6"/>
+  <text x="50" y="28" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="16" font-weight="650" fill="#F4F0E6" letter-spacing="3.2">CODES</text>
+  <line x1="50" y1="33" x2="168" y2="33" stroke="#C4A574" stroke-width="1"/>
+  <text x="128" y="46" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="11" font-weight="650" fill="#C4A574" letter-spacing="4">AI</text>
 </svg>

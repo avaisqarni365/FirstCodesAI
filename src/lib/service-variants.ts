@@ -48,6 +48,7 @@ export const ACCENT: Record<string, AccentClasses> = {
   mint:  { text: "text-mint-500",  textStrong: "text-mint-500",  bg: "bg-mint-100",  bgSoft: "bg-mint-100/50",  border: "border-mint-200",  dot: "bg-mint-500",  grad: "from-mint-500 to-emerald-600" },
   gold:  { text: "text-gold-500",  textStrong: "text-gold-500",  bg: "bg-gold-100",  bgSoft: "bg-gold-100/50",  border: "border-gold-200",  dot: "bg-gold-500",  grad: "from-gold-500 to-coral-500" },
   coral: { text: "text-coral-500", textStrong: "text-coral-500", bg: "bg-coral-100", bgSoft: "bg-coral-100/50", border: "border-coral-200", dot: "bg-coral-500", grad: "from-coral-500 to-peach-500" },
+  teal:  { text: "text-teal-600",  textStrong: "text-teal-500",  bg: "bg-teal-100",  bgSoft: "bg-teal-50",      border: "border-teal-200",  dot: "bg-teal-500",  grad: "from-teal-500 to-teal-600" },
 };
 export function accentOf(key: string): AccentClasses {
   return ACCENT[key] ?? ACCENT.peach;

@@ -7,10 +7,10 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  /* Mono everywhere — OpenCode / vibe-coder identity */
-  --font-sans: var(--font-plex-mono), var(--font-geist-mono), ui-monospace, monospace;
+  /* ACCA / Kontai: sans for the page, mono for labels */
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-plex-mono), var(--font-geist-mono), ui-monospace, monospace;
-  --font-heading: var(--font-plex-mono), var(--font-geist-mono), ui-monospace, monospace;
+  --font-heading: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -85,27 +85,45 @@
   --color-mint-100: #E1F4EC;
   --color-mint-200: #C4E9D8;
   --color-mint-500: #4FB88A;
+  /* Ivory, forest, brass — the house colours */
+  --color-canvas: #F4F0E6;
+  --color-ink: #1C1915;
+  --color-mist: #EBE6DA;
+  --color-line: #DDD4C4;
+  --color-forest: #12281F;
+  --color-teal-50: #F2F5F1;
+  --color-teal-100: #E3EBE4;
+  --color-teal-200: #C5D4C8;
+  --color-teal-400: #8FAF96;
+  --color-teal-500: #16382A;
+  --color-teal-600: #0E241C;
+  --color-teal-700: #1E4A36;
+  --color-brass: #8A7049;
+  --color-brass-50: #F7F1E4;
+  --color-nvidia: #76B900;
+  --color-nvidia-50: #F3F8E6;
+  --color-nvidia-700: #3D5C00;
 }
 
 :root {
-  --background: #FAF9F5;
-  --foreground: #191919;
+  --background: #F4F0E6;
+  --foreground: #1C1915;
   --card: #FFFFFF;
-  --card-foreground: #191919;
+  --card-foreground: #1C1915;
   --popover: #FFFFFF;
-  --popover-foreground: #191919;
-  --primary: #CC785C;
+  --popover-foreground: #1C1915;
+  --primary: #16382A;
   --primary-foreground: #FFFFFF;
-  --secondary: #F6E5DA;
-  --secondary-foreground: #A6512F;
-  --muted: #F0E9E1;
-  --muted-foreground: #8A7E6F;
-  --accent: #F6E5DA;
-  --accent-foreground: #A6512F;
+  --secondary: #E3EBE4;
+  --secondary-foreground: #122E22;
+  --muted: #EBE6DA;
+  --muted-foreground: #6B6560;
+  --accent: #E3EBE4;
+  --accent-foreground: #122E22;
   --destructive: #DC2626;
-  --border: #E8DDD1;
-  --input: #E8DDD1;
-  --ring: #CC785C;
+  --border: #DDD4C4;
+  --input: #DDD4C4;
+  --ring: #16382A;
   --chart-1: #CC785C;
   --chart-2: #D4A27F;
   --chart-3: #AB84EC;
@@ -114,12 +132,12 @@
   --radius: 0.9rem;
   --sidebar: #FFFFFF;
   --sidebar-foreground: #3A342D;
-  --sidebar-primary: #CC785C;
+  --sidebar-primary: #16382A;
   --sidebar-primary-foreground: #FFFFFF;
-  --sidebar-accent: #F6E5DA;
-  --sidebar-accent-foreground: #A6512F;
-  --sidebar-border: #F0E9E1;
-  --sidebar-ring: #CC785C;
+  --sidebar-accent: #E3EBE4;
+  --sidebar-accent-foreground: #122E22;
+  --sidebar-border: #DDD4C4;
+  --sidebar-ring: #16382A;
 }
 
 @layer base {
@@ -145,8 +163,8 @@
 
 /* Pulse glow */
 @keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 8px rgba(204, 120, 92, 0.3); }
-  50% { box-shadow: 0 0 20px rgba(204, 120, 92, 0.6); }
+  0%, 100% { box-shadow: 0 0 8px rgba(18, 40, 31, 0.22); }
+  50% { box-shadow: 0 0 20px rgba(18, 40, 31, 0.4); }
 }
 .animate-pulse-glow {
   animation: pulse-glow 2s ease-in-out infinite;

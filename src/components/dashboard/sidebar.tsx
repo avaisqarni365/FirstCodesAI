@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { Wordmark } from "@/components/marketing/Wordmark";
 import {
   LayoutDashboard,
   Users,
@@ -129,10 +130,7 @@ export function Sidebar() {
           <div className="w-10 h-10 bg-gradient-to-br from-peach-500 to-peach-400 rounded-xl flex items-center justify-center shadow-md shadow-peach-200">
             <Code2 className="w-5 h-5 text-white" />
           </div>
-          <div>
-            <h1 className="text-sm font-bold text-warm-800 leading-tight">CODES AI</h1>
-            <p className="text-[10px] text-warm-400 leading-tight">Private Limited</p>
-          </div>
+          <Wordmark size="sm" />
         </Link>
       </div>
 

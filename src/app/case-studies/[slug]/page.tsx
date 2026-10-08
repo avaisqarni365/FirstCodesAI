@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence, useInView, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import { ArrowRight, ArrowLeft, Mail, Phone, Star, CheckCircle2, Code2, Sparkles, Menu, X, ArrowUpRight, Award, ChevronDown, Send, Gauge, Database } from "lucide-react";
 import { caseStudies } from "@/lib/case-studies-data";
+import { Wordmark } from "@/components/marketing/Wordmark";
 
 function AnimatedCounter({ value }: { value: string }) {
   const ref = useRef<HTMLSpanElement>(null);
@@ -66,8 +67,8 @@ export default function CaseStudyDetailPage() {
       <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-lg border-b border-warm-100/60">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-14 sm:h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-gradient-to-br from-peach-400 to-peach-600 rounded-lg flex items-center justify-center shadow-md"><Code2 className="w-4 h-4 text-white" /></div>
-            <span className="font-bold text-warm-800 text-base tracking-tight">CODES<span className="text-peach-500">AI</span></span>
+            <div className="w-8 h-8 bg-teal-500 rounded-lg flex items-center justify-center shadow-md"><Code2 className="w-4 h-4 text-white" /></div>
+            <Wordmark />
           </Link>
           <div className="hidden md:flex items-center gap-6">
             {[["Studio", "/studio"], ["Services", "/services"], ["Case Studies", "/case-studies"], ["About", "/about"]].map(([l, h]) => (
@@ -282,7 +283,7 @@ export default function CaseStudyDetailPage() {
       <section className="max-w-5xl mx-auto px-4 sm:px-6 pb-8 sm:pb-12">
         <FadeIn>
           <div className="bg-gradient-to-br from-peach-50 to-amber-50 border-2 border-peach-200 rounded-2xl p-6 sm:p-10 text-center">
-            <div className="w-12 h-12 bg-gradient-to-br from-peach-400 to-peach-600 rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg animate-pulse-glow">
+            <div className="w-12 h-12 bg-teal-500 rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg animate-pulse-glow">
               <Send className="w-6 h-6 text-white" />
             </div>
             <h2 className="text-lg sm:text-2xl font-bold text-warm-800 mb-2">Start a similar project</h2>
@@ -327,8 +328,8 @@ export default function CaseStudyDetailPage() {
       <footer className="bg-warm-50 border-t border-warm-200 py-6">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-3">
           <Link href="/" className="flex items-center gap-2">
-            <div className="w-7 h-7 bg-gradient-to-br from-peach-400 to-peach-600 rounded-lg flex items-center justify-center"><Code2 className="w-3.5 h-3.5 text-white" /></div>
-            <span className="font-bold text-warm-800 text-sm">CODES<span className="text-peach-500">AI</span></span>
+            <div className="w-7 h-7 bg-teal-500 rounded-lg flex items-center justify-center"><Code2 className="w-3.5 h-3.5 text-white" /></div>
+            <Wordmark size="sm" />
           </Link>
           <p className="text-[10px] text-warm-500">&copy; 2026 CODES AI LIMITED (16078672)</p>
         </div>

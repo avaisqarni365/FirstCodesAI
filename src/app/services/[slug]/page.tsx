@@ -10,6 +10,7 @@ import { SERVICE_VARIANTS, DEFAULT_VARIANT, accentOf } from "@/lib/service-varia
 import { Starburst, FadeIn } from "@/components/vibe";
 import { ServiceHero } from "@/components/services/ServiceHero";
 import { ProcessGraphic } from "@/components/services/ProcessGraphic";
+import { Wordmark } from "@/components/marketing/Wordmark";
 
 export default function ServiceDetailPage() {
   const params = useParams();
@@ -40,7 +41,7 @@ export default function ServiceDetailPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
             <Starburst size={22} className="text-peach-500" />
-            <span className="font-bold text-warm-800 tracking-tight">CODES<span className="text-peach-500">AI</span></span>
+            <Wordmark />
           </Link>
           <div className="hidden md:flex items-center gap-6 text-sm">
             {[["Studio", "/studio"], ["Services", "/services"], ["Case Studies", "/case-studies"], ["About", "/about"]].map(([l, h]) => (
@@ -230,7 +231,7 @@ export default function ServiceDetailPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-3">
           <Link href="/" className="flex items-center gap-2">
             <Starburst size={18} className="text-peach-500" />
-            <span className="font-bold text-warm-800 text-sm">CODES<span className="text-peach-500">AI</span></span>
+            <Wordmark size="sm" />
           </Link>
           <p className="text-[9px] sm:text-[10px] text-warm-500">&copy; 2026 CODES AI LIMITED (16078672). All rights reserved.</p>
         </div>

@@ -21,9 +21,9 @@ const plexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "CODES AI | Vibe Coding Studio — Build Any App, Remotely",
+  title: "CODES AI | Claude reasons. NVIDIA runs it.",
   description:
-    "Have an idea? SparkVibe Studio turns it into a shipped product — write requirements, pick features, get a live token-cost estimate, and our remote vibe-coding team + domain experts build it sprint by sprint.",
+    "CODES AI is joining Claude Startups and NVIDIA Inception. ACCA, SparkVibe and Artizai — accounting reasoned by Claude and served on NVIDIA hardware.",
 };
 
 export default function RootLayout({
