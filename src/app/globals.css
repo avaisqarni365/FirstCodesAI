@@ -283,3 +283,25 @@
     scroll-behavior: auto !important;
   }
 }
+
+/* Header links are solid black. Footer type is solid white. */
+.nav-link,
+.nav-link:hover {
+  color: #000000;
+  font-weight: 700;
+  -webkit-font-smoothing: auto;
+  -moz-osx-font-smoothing: auto;
+}
+.footer-text,
+.footer-text:hover {
+  color: #ffffff;
+  font-weight: 700;
+  -webkit-font-smoothing: auto;
+  -moz-osx-font-smoothing: auto;
+}
+.text-white {
+  color: #ffffff;
+  font-weight: 700;
+  -webkit-font-smoothing: auto;
+  -moz-osx-font-smoothing: auto;
+}

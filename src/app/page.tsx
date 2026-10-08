@@ -145,7 +145,7 @@ export default function Home() {
                 </div>
                 <div className="px-4 sm:px-5 pb-5">
                   <div className="rounded-[10px] bg-forest text-white px-4 py-3 flex items-center justify-between">
-                    <span className="text-sm font-semibold">Trail kept on the booking</span>
+                    <span className="text-sm font-bold">Trail kept on the booking</span>
                     <CheckCircle2 className="w-4 h-4 text-teal-400" />
                   </div>
                 </div>

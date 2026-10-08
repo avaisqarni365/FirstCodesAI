@@ -40,7 +40,7 @@ export function SiteFrame({
               <Link
                 key={l.id}
                 href={l.href}
-                className={`text-sm font-medium transition-colors ${active === l.id ? "text-teal-700" : "text-ink/60 hover:text-teal-700"}`}
+                className="nav-link text-sm font-bold text-black"
               >
                 {l.label}
               </Link>
@@ -49,7 +49,7 @@ export function SiteFrame({
               Talk to us <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
-          <button onClick={() => setMenuOpen(!menuOpen)} className="md:hidden p-2 -mr-2 text-ink/70" aria-label="Toggle menu">
+          <button onClick={() => setMenuOpen(!menuOpen)} className="md:hidden p-2 -mr-2 text-black" aria-label="Toggle menu">
             {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
@@ -58,7 +58,7 @@ export function SiteFrame({
             <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} transition={{ duration: 0.2 }} className="md:hidden bg-canvas border-t border-line overflow-hidden">
               <div className="px-4 py-4 space-y-1">
                 {LINKS.map((l) => (
-                  <Link key={l.id} href={l.href} onClick={() => setMenuOpen(false)} className="block px-3 py-3 text-base font-medium text-ink hover:bg-teal-50 rounded-lg">{l.label}</Link>
+                  <Link key={l.id} href={l.href} onClick={() => setMenuOpen(false)} className="nav-link block px-3 py-3 text-base font-bold text-black hover:bg-teal-50 rounded-lg">{l.label}</Link>
                 ))}
                 <Link href="/#contact" onClick={() => setMenuOpen(false)} className="block mt-2 text-center text-sm font-semibold text-white bg-teal-500 py-3 rounded-[12px]">Talk to us</Link>
               </div>
@@ -77,43 +77,43 @@ export function SiteFrame({
                 <div className="w-8 h-8 bg-brass rounded-[8px] flex items-center justify-center"><Code2 className="w-4 h-4 text-forest" /></div>
                 <Wordmark onDark size="sm" />
               </div>
-              <p className="text-xs text-[#F4F0E6]/60 leading-relaxed">Products on Claude, served on NVIDIA.</p>
+              <p className="footer-text text-sm font-bold leading-relaxed">Products on Claude, served on NVIDIA.</p>
             </div>
             <div>
-              <h4 className="font-mono text-[11px] font-semibold tracking-wide text-brass uppercase mb-3">Services</h4>
+              <h4 className="footer-text font-mono text-[11px] font-bold tracking-wide uppercase mb-3">Services</h4>
               <ul className="space-y-2">
                 {[["Remote Sales & CRM", "/services/remote-sales-crm-ops"], ["Lead Generation", "/services/global-lead-generation"], ["Comms Desk", "/services/remote-communications-desk"], ["Finance Ops", "/services/remote-finance-invoicing-ops"], ["Team Enablement", "/services/remote-team-enablement"]].map(([l, h]) => (
-                  <li key={l}><Link href={h} className="text-xs text-[#F4F0E6]/70 hover:text-brass">{l}</Link></li>
+                  <li key={l}><Link href={h} className="footer-text text-sm font-bold">{l}</Link></li>
                 ))}
               </ul>
             </div>
             <div>
-              <h4 className="font-mono text-[11px] font-semibold tracking-wide text-brass uppercase mb-3">Products</h4>
+              <h4 className="footer-text font-mono text-[11px] font-bold tracking-wide uppercase mb-3">Products</h4>
               <ul className="space-y-2">
                 {[["SparkVibe", "https://vibe.codes-ai.uk"], ["ACCA — Kontai", "https://acca.codes-ai.uk"], ["Artizai", "https://artizai.uk"], ["Studio", "/studio"]].map(([l, h]) => (
-                  <li key={l}>{h.startsWith("http") ? <a href={h} target="_blank" rel="noopener noreferrer" className="text-xs text-[#F4F0E6]/70 hover:text-brass">{l}</a> : <Link href={h} className="text-xs text-[#F4F0E6]/70 hover:text-brass">{l}</Link>}</li>
+                  <li key={l}>{h.startsWith("http") ? <a href={h} target="_blank" rel="noopener noreferrer" className="footer-text text-sm font-bold">{l}</a> : <Link href={h} className="footer-text text-sm font-bold">{l}</Link>}</li>
                 ))}
               </ul>
             </div>
             <div>
-              <h4 className="font-mono text-[11px] font-semibold tracking-wide text-brass uppercase mb-3">Company</h4>
+              <h4 className="footer-text font-mono text-[11px] font-bold tracking-wide uppercase mb-3">Company</h4>
               <ul className="space-y-2">
                 {[["About", "/about"], ["Case studies", "/case-studies"], ["All services", "/services"], ["Contact", "/#contact"]].map(([l, h]) => (
-                  <li key={l}><Link href={h} className="text-xs text-[#F4F0E6]/70 hover:text-brass">{l}</Link></li>
+                  <li key={l}><Link href={h} className="footer-text text-sm font-bold">{l}</Link></li>
                 ))}
               </ul>
             </div>
             <div>
-              <h4 className="font-mono text-[11px] font-semibold tracking-wide text-brass uppercase mb-3">Contact</h4>
-              <ul className="space-y-2 text-xs text-[#F4F0E6]/70">
-                <li><a href="mailto:info@codes-ai.uk" className="hover:text-brass">info@codes-ai.uk</a></li>
-                <li><a href="tel:+447586094540" className="hover:text-brass">+44 7586 094540</a></li>
-                <li>codes-ai.uk</li>
+              <h4 className="footer-text font-mono text-[11px] font-bold tracking-wide uppercase mb-3">Contact</h4>
+              <ul className="space-y-2 text-sm font-bold">
+                <li><a href="mailto:info@codes-ai.uk" className="footer-text">info@codes-ai.uk</a></li>
+                <li><a href="tel:+447586094540" className="footer-text">+44 7586 094540</a></li>
+                <li className="footer-text">codes-ai.uk</li>
               </ul>
             </div>
           </div>
           <div className="pt-6 border-t border-white/10">
-            <p className="text-[11px] text-[#F4F0E6]/45">&copy; 2026 CODES AI LIMITED (16078672). All rights reserved.</p>
+            <p className="footer-text text-xs font-bold">&copy; 2026 CODES AI LIMITED (16078672). All rights reserved.</p>
           </div>
         </div>
       </footer>
