@@ -88,7 +88,7 @@ export default function Home() {
                 <span className="text-[10px] sm:text-xs font-mono font-semibold text-teal-700 leading-snug">Joining Claude Startups and NVIDIA Inception</span>
               </motion.div>
 
-              <h1 className="text-[length:var(--text-hero)] font-semibold text-ink leading-[1.02] tracking-tight text-balance">
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-ink leading-snug tracking-tight text-balance">
                 Claude reasons.
                 <br />
                 NVIDIA runs it.

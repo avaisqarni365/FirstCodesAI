@@ -48,7 +48,7 @@
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
   /* Fluid display type (modern oversized headlines) */
-  --text-hero: clamp(2.5rem, 6vw, 5.5rem);
+  --text-hero: clamp(1.5rem, 2.2vw, 2.25rem);
   --text-display: clamp(2rem, 4vw, 3.5rem);
   /* Brand primary — Claude terracotta/coral ramp (kept under peach-* names) */
   --color-peach-50: #FBF3EE;
